@@ -1,0 +1,32 @@
+{
+  "name": "next-js-marketplace-printforge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "1.84.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.21.0",
+    "eslint-config-upleveled": "^9.2.0",
+    "postcss": "^8",
+    "prettier": "^3.5.3",
+    "stylelint": "^16.15.0",
+    "stylelint-config-upleveled": "^1.1.9",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.8.2"
+  },
+  "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d"
+}
