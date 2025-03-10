@@ -1,28 +1,44 @@
 'use client';
 
 import { useState } from 'react';
+import ErrorMessage from '../../ErrorMessage';
+import type { RegisterResponseBody } from '../api/register/route';
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [zipCode, setZipCode] = useState(0);
+  const [country, setCountry] = useState('');
+  const [offersPrinting, setOffersPrinting] = useState(false);
+  const [errors, setErrors] = useState<{ message: string }[]>();
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const response = await fetch('api/register', {
       method: 'POST',
       body: JSON.stringify({
-        username,
+        userName,
         firstName,
         lastName,
         email,
         password,
+        address,
+        city,
+        zipCode,
+        country,
+        offersPrinting,
       }),
     });
-    const data = await response.json();
-    console.log(data);
+    const data: RegisterResponseBody = await response.json();
+
+    if ('errors' in data) {
+      setErrors(data.errors);
+    }
   }
 
   return (
@@ -31,8 +47,8 @@ export default function RegisterForm() {
         Username
         <input
           className="input input-primary"
-          value={username}
-          onChange={(event) => setUsername(event.currentTarget.value)}
+          value={userName}
+          onChange={(event) => setUserName(event.currentTarget.value)}
         />
       </label>
       <label>
@@ -64,7 +80,52 @@ export default function RegisterForm() {
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
+      <label>
+        Address
+        <input
+          value={address}
+          onChange={(event) => setAddress(event.currentTarget.value)}
+        />
+      </label>
+      <label>
+        City
+        <input
+          value={city}
+          onChange={(event) => setCity(event.currentTarget.value)}
+        />
+      </label>
+      <label>
+        Zip Code
+        <input
+          type="number"
+          value={zipCode}
+          onChange={(event) => setZipCode(Number(event.currentTarget.value))}
+        />
+      </label>
+      <label>
+        Country
+        <input
+          value={country}
+          onChange={(event) => setCountry(event.currentTarget.value)}
+        />
+      </label>
+      <label>
+        I have a 3D Printer and want to offer Printing Services
+        <input
+          type="checkbox"
+          className="toggle toggle-primary"
+          checked={offersPrinting}
+          onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
+        />
+      </label>
       <button className="btn btn-primary">Register</button>
+      {errors?.map((error) => {
+        return (
+          <div key={`error-${error.message}-${Math.random()}`}>
+            <ErrorMessage>{error.message}</ErrorMessage>
+          </div>
+        );
+      })}
     </form>
   );
 }

@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
-import { getUserInsecure } from '../../../../database/users';
+import {
+  createUserInsecure,
+  getUserInsecure,
+} from '../../../../database/users';
 import {
   registerSchema,
   type User,
@@ -31,8 +34,7 @@ export async function POST(request: Request): Promise<NextResponse<any>> {
   }
 
   // check if user already exists in database
-
-  const user = await getUserInsecure(result.data.username);
+  const user = await getUserInsecure(result.data.userName);
 
   if (user) {
     return NextResponse.json(
@@ -46,10 +48,21 @@ export async function POST(request: Request): Promise<NextResponse<any>> {
   }
 
   // Hash plain password from user
-
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 
-  console.log('passwordHash:', passwordHash);
+  // Save user information with password hash in database
+  const newUser = await createUserInsecure(result.data, passwordHash);
+
+  if (!newUser) {
+    return NextResponse.json(
+      {
+        errors: [{ message: 'Error when trying to create new user' }],
+      },
+      {
+        status: 400,
+      },
+    );
+  }
 
   return NextResponse.json({ user: 'new user' });
 }
