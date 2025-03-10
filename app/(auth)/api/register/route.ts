@@ -17,7 +17,9 @@ export type RegisterResponseBody =
       errors: { message: string }[];
     };
 
-export async function POST(request: Request): Promise<NextResponse<any>> {
+export async function POST(
+  request: Request,
+): Promise<NextResponse<RegisterResponseBody>> {
   // get user data from the request
   const requestBody = await request.json();
 
@@ -64,5 +66,5 @@ export async function POST(request: Request): Promise<NextResponse<any>> {
     );
   }
 
-  return NextResponse.json({ user: 'new user' });
+  return NextResponse.json({ user: newUser });
 }

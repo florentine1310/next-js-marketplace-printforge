@@ -28,6 +28,11 @@ export const registerSchema = z.object({
   offersPrinting: z.boolean(),
 });
 
+export const loginSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(5),
+});
+
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE users (

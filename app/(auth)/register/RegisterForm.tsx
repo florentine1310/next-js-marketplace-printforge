@@ -38,65 +38,85 @@ export default function RegisterForm() {
 
     if ('errors' in data) {
       setErrors(data.errors);
+      return;
     }
   }
 
   return (
     <form onSubmit={handleRegister}>
+      <div>
+        <h2 className="text-base/7 font-semibold text-gray-900">
+          User Details
+        </h2>
+      </div>
       <label>
         Username
         <input
           className="input input-primary"
           value={userName}
+          placeholder="your username"
           onChange={(event) => setUserName(event.currentTarget.value)}
         />
       </label>
       <label>
         First Name
         <input
+          className="input input-primary"
           value={firstName}
+          placeholder="your first name"
           onChange={(event) => setFirstName(event.currentTarget.value)}
         />
       </label>
       <label>
         Last Name
         <input
+          className="input input-primary"
           value={lastName}
+          placeholder="your last name"
           onChange={(event) => setLastName(event.currentTarget.value)}
         />
       </label>
       <label>
         Email
         <input
+          className="input input-primary"
           value={email}
+          placeholder="your email"
           onChange={(event) => setEmail(event.currentTarget.value)}
         />
       </label>
       <label>
         Password
         <input
+          className="input input-primary"
           type="password"
           value={password}
+          placeholder="create password"
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
       <label>
         Address
         <input
+          className="input input-primary"
           value={address}
+          placeholder="your address"
           onChange={(event) => setAddress(event.currentTarget.value)}
         />
       </label>
       <label>
         City
         <input
+          className="input input-primary"
           value={city}
+          placeholder="your city"
           onChange={(event) => setCity(event.currentTarget.value)}
         />
       </label>
       <label>
         Zip Code
         <input
+          className="input input-primary"
           type="number"
           value={zipCode}
           onChange={(event) => setZipCode(Number(event.currentTarget.value))}
@@ -105,7 +125,9 @@ export default function RegisterForm() {
       <label>
         Country
         <input
+          className="input input-primary"
           value={country}
+          placeholder="your country"
           onChange={(event) => setCountry(event.currentTarget.value)}
         />
       </label>
