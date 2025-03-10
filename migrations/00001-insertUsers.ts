@@ -11,7 +11,9 @@ const users = [
     zipCode: 10719,
     city: 'Berlin',
     country: 'Germany',
-    profileImage: 'https://example.com/profile1.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
   {
@@ -24,7 +26,9 @@ const users = [
     zipCode: 80331,
     city: 'München',
     country: 'Germany',
-    profileImage: 'https://example.com/profile2.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: false,
   },
   {
@@ -37,7 +41,9 @@ const users = [
     zipCode: 20095,
     city: 'Hamburg',
     country: 'Germany',
-    profileImage: 'https://example.com/profile3.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
   {
@@ -50,7 +56,9 @@ const users = [
     zipCode: 50667,
     city: 'Köln',
     country: 'Germany',
-    profileImage: 'https://example.com/profile4.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
   {
@@ -63,7 +71,9 @@ const users = [
     zipCode: 60313,
     city: 'Frankfurt',
     country: 'Germany',
-    profileImage: 'https://example.com/profile5.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: false,
   },
   {
@@ -76,7 +86,9 @@ const users = [
     zipCode: 70173,
     city: 'Stuttgart',
     country: 'Germany',
-    profileImage: 'https://example.com/profile6.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
   {
@@ -89,7 +101,9 @@ const users = [
     zipCode: 1010,
     city: 'Wien',
     country: 'Austria',
-    profileImage: 'https://example.com/profile7.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: false,
   },
   {
@@ -102,7 +116,9 @@ const users = [
     zipCode: 1010,
     city: 'Wien',
     country: 'Austria',
-    profileImage: 'https://example.com/profile8.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
   {
@@ -115,7 +131,9 @@ const users = [
     zipCode: 5020,
     city: 'Salzburg',
     country: 'Austria',
-    profileImage: 'https://example.com/profile9.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: false,
   },
   {
@@ -128,7 +146,9 @@ const users = [
     zipCode: 4020,
     city: 'Linz',
     country: 'Austria',
-    profileImage: 'https://example.com/profile10.jpg',
+    profileImage: '',
+    passwordHash:
+      '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
 ];
@@ -137,7 +157,6 @@ export async function up(sql: Sql) {
   for (const user of users) {
     await sql`
 INSERT INTO users (
-  id,
   user_name,
       email,
       first_name,
@@ -152,7 +171,6 @@ INSERT INTO users (
       created_at
 )
 VALUES (
-  ${user.id},
   ${user.userName},
   ${user.email},
   ${user.firstName},
@@ -162,6 +180,7 @@ VALUES (
   ${user.city},
   ${user.country},
   ${user.profileImage},
+  ${user.passwordHash},
   ${user.offersPrinting},
   CURRENT_DATE
 )

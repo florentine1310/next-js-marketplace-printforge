@@ -1,19 +1,36 @@
 import type { Sql } from 'postgres';
+import { z } from 'zod';
 
 export type User = {
   id: number;
-  user_name: string;
+  username: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   address: string;
-  zip_code: number;
+  zipCode: number;
   city: string;
   country: string;
-  profile_image: string;
-  offers_printing: boolean;
-  created_at: Date;
+  profileImage: string;
+  passwordHash: string;
+  offersPrinting: boolean;
+  createdAt: Date;
 };
+
+export const registerSchema = z.object({
+  username: z.string().min(3),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(5, { message: 'Must be 5 or more characters long' }),
+
+  /*   address: z.string().min(3),
+  zip_code: z.number(),
+  city: z.string().min(3),
+  country: z.string().min(3),
+  profile_image: z.string().url(),
+  offers_printing: z.boolean(), */
+});
 
 export async function up(sql: Sql) {
   await sql`
@@ -27,7 +44,7 @@ export async function up(sql: Sql) {
       zip_code bigint NOT NULL,
       city varchar(50) NOT NULL,
       country varchar(50) NOT NULL,
-      profile_image url,
+      profile_image varchar,
       password_hash varchar NOT NULL,
       offers_printing boolean NOT NULL,
       created_at date NOT NULL
