@@ -1,20 +1,11 @@
 import './globals.css';
-import { Geist, Geist_Mono } from 'next/font/google';
+import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
 };
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const dynamic = 'force-dynamic';
 
@@ -26,10 +17,25 @@ export const metadata = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <header>
+          <div>
+            <nav>
+              <Link href="/">
+                <Image
+                  src="/images/Printforge_logo.svg"
+                  alt="Logo"
+                  width={100}
+                  height={100}
+                />
+              </Link>
+              <Link href="/register">Register</Link>
+              <Link href="/login">Login</Link>
+            </nav>
+          </div>
+        </header>
+        <main>{children}</main>
+        <footer>PrintForge GmbH ®</footer>
       </body>
     </html>
   );

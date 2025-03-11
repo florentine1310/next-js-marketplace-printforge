@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ErrorMessage from '../../ErrorMessage';
 import type { RegisterResponseBody } from '../api/register/route';
@@ -16,6 +17,8 @@ export default function RegisterForm() {
   const [country, setCountry] = useState('');
   const [offersPrinting, setOffersPrinting] = useState(false);
   const [errors, setErrors] = useState<{ message: string }[]>();
+
+  const router = useRouter();
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,6 +43,7 @@ export default function RegisterForm() {
       setErrors(data.errors);
       return;
     }
+    router.push('/register-success');
   }
 
   return (
