@@ -44,7 +44,7 @@ export const getUserWithPasswordHashInsecure = cache(
   FROM
     users
   WHERE
-    email = ${email}
+    email = ${email.toLowerCase()}
 `;
 
     return user;
@@ -62,7 +62,7 @@ export const createUserInsecure = cache(
       VALUES
         (
           ${userData.userName},
-          ${userData.email},
+          ${userData.email.toLowerCase()},
           ${userData.firstName},
           ${userData.lastName},
           ${userData.address},

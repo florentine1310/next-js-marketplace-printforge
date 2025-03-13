@@ -2,10 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { getSafeReturnToPath } from '../../../util/validation';
 import ErrorMessage from '../../ErrorMessage';
 import type { RegisterResponseBody } from '../api/register/route';
 
-export default function RegisterForm() {
+type Props = { returnTo?: string | string[] };
+
+export default function RegisterForm(props: Props) {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -43,7 +46,7 @@ export default function RegisterForm() {
       setErrors(data.errors);
       return;
     }
-    router.push('/register-success');
+    router.push(getSafeReturnToPath(props.returnTo) || '/register-success');
   }
 
   return (
