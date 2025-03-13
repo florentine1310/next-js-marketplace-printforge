@@ -8,9 +8,9 @@ export async function up(sql: Sql) {
       category varchar(50) NOT NULL,
       name varchar(100) NOT NULL,
       description varchar(250) NOT NULL,
-      stl_url varchar NOT NULL,
-      image_url varchar NOT NULL,
-      print_price integer NOT NULL
+      stl_url varchar,
+      image_url varchar,
+      print_price numeric(10, 2) NOT NULL
     )
   `;
 }

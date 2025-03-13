@@ -2,6 +2,9 @@ import './globals.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import LoginButton from './(auth)/login/LoginButton';
+import LogoutButton from './(auth)/logout/LogoutButton';
+import RegisterButton from './(auth)/register/RegisterButton';
 
 type Props = {
   children: ReactNode;
@@ -20,22 +23,58 @@ export default function RootLayout({ children }: Props) {
       <body>
         <header>
           <div>
-            <nav>
+            <nav className="navbar bg-base-100 shadow-sm">
               <Link href="/">
                 <Image
-                  src="/images/Printforge_logo.svg"
+                  src="/images/logo.svg"
                   alt="Logo"
                   width={100}
                   height={100}
                 />
               </Link>
-              <Link href="/register">Register</Link>
-              <Link href="/login">Login</Link>
+              <div className="navbar-start">
+                <Link href="/models">3D Models</Link>
+              </div>
+              <div className="navbar-center hidden lg:flex">
+                <input
+                  placeholder="Search"
+                  className="input input-bordered w-24 md:w-auto"
+                />
+              </div>
+
+              <div className="navbar-end">
+                <Link href="/cart">
+                  <Image
+                    src="/icons/shopping-cart.svg"
+                    alt="cart"
+                    width={25}
+                    height={25}
+                  />
+                </Link>
+
+                <Link href="/">
+                  <Image
+                    src="/icons/user.svg"
+                    alt="user"
+                    width={25}
+                    height={25}
+                  />
+                </Link>
+                <LogoutButton />
+                <Link href="/register">
+                  <RegisterButton />
+                </Link>
+                <Link href="/login">
+                  <LoginButton />
+                </Link>
+              </div>
             </nav>
           </div>
         </header>
         <main>{children}</main>
-        <footer>PrintForge GmbH ®</footer>
+        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+          LayerForge ®
+        </footer>
       </body>
     </html>
   );

@@ -50,13 +50,16 @@ export default function RegisterForm(props: Props) {
   }
 
   return (
-    <form onSubmit={handleRegister}>
+    <form
+      onSubmit={handleRegister}
+      className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box"
+    >
       <div>
         <h2 className="text-base/7 font-semibold text-gray-900">
           User Details
         </h2>
       </div>
-      <label>
+      <label className="fieldset-label">
         Username
         <input
           className="input input-primary"
@@ -65,7 +68,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setUserName(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         First Name
         <input
           className="input input-primary"
@@ -74,7 +77,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setFirstName(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Last Name
         <input
           className="input input-primary"
@@ -83,7 +86,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setLastName(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Email
         <input
           className="input input-primary"
@@ -92,7 +95,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setEmail(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Password
         <input
           className="input input-primary"
@@ -102,7 +105,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Address
         <input
           className="input input-primary"
@@ -111,7 +114,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setAddress(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         City
         <input
           className="input input-primary"
@@ -120,7 +123,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setCity(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Zip Code
         <input
           className="input input-primary"
@@ -129,7 +132,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setZipCode(Number(event.currentTarget.value))}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         Country
         <input
           className="input input-primary"
@@ -138,7 +141,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setCountry(event.currentTarget.value)}
         />
       </label>
-      <label>
+      <label className="fieldset-label">
         I have a 3D Printer and want to offer Printing Services
         <input
           type="checkbox"
@@ -147,7 +150,7 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
         />
       </label>
-      <button className="btn btn-primary">Register</button>
+      <button className="btn btn-neutral mt-4">Register</button>
       {errors?.map((error) => {
         return (
           <div key={`error-${error.message}-${Math.random()}`}>

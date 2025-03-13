@@ -9,6 +9,7 @@ type UserWithPasswordHash = User & {
 export const getUserInsecure = cache(async (userName: User['userName']) => {
   const [user] = await sql<User[]>`
   SELECT
+    id,
     user_name,
     email,
     first_name,
@@ -31,7 +32,8 @@ export const getUserWithPasswordHashInsecure = cache(
   async (email: User['email']) => {
     const [user] = await sql<UserWithPasswordHash[]>`
   SELECT
-  user_name,
+    id,
+    user_name,
     email,
     first_name,
     last_name,
@@ -53,7 +55,7 @@ export const getUserWithPasswordHashInsecure = cache(
 
 export const createUserInsecure = cache(
   async (
-    userData: User,
+    userData: Omit<User, 'id'>,
     passwordHash: UserWithPasswordHash['passwordHash'],
   ) => {
     const [user] = await sql<User[]>`
@@ -74,6 +76,7 @@ export const createUserInsecure = cache(
           ${passwordHash}
         )
       RETURNING
+        users.id,
         users.user_name,
         users.email,
         users.first_name,
