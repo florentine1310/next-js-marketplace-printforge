@@ -19,11 +19,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="corporate">
       <body>
         <header>
           <div>
-            <nav className="navbar bg-base-100 shadow-sm">
+            <nav className="navbar bg-base-100 shadow-xs">
               <Link href="/">
                 <Image
                   src="/images/logo.svg"

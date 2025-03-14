@@ -1,6 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../tailwind.config.mjs';
+@plugin "daisyui" {
+  themes:
+    corporate --default,
+    dark --prefersdark;
+  root: ':root';
+  include:;
+  exclude:;
+  prefix:;
+  logs: true;
+}
+@plugin "daisyui/theme" {
+  name: 'corporate';
+  default: true;
+  --color-primary: #5a5db6;
+  --color-secondary: #234e70;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 :root {
   --background: #ffffff;
