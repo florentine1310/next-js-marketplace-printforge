@@ -9,7 +9,7 @@ export default function LogoutButton() {
   return (
     <form>
       <button
-        className="btn btn-secondary"
+        className="btn btn-primary"
         formAction={async () => {
           await logout();
           router.refresh();

@@ -52,7 +52,7 @@ export default function RegisterForm(props: Props) {
   return (
     <form
       onSubmit={handleRegister}
-      className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box"
+      className="fieldset w-xs bg-base-200 border border-base-300 p-4 m-10 rounded-box"
     >
       <div>
         <h2 className="text-base/7 font-semibold text-gray-900">

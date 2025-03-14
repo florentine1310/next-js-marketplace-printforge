@@ -40,7 +40,7 @@ export default function LoginForm(props: Props) {
   return (
     <form
       onSubmit={handleLogin}
-      className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box"
+      className="fieldset w-xs bg-base-200 border border-base-300 p-4 m-10 rounded-box"
     >
       <div>
         <h2 className="text-base/7 font-semibold text-gray-900">User Login</h2>
