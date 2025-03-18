@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getValidSessionToken } from '../../../database/sessions';
+import { getUser } from '../../../database/users';
+import AccountDetailsForm from './AccountDetailsForm';
 
 type Props = {
   params: Promise<{ username: string }>;
@@ -9,11 +11,8 @@ type Props = {
 export default async function ProfilePage(props: Props) {
   const { username } = await props.params;
 
-  // check if sessionToken cookie exists
-  const cookieStore = await cookies();
-
   // get the session token from the cookie
-  const sessionTokenCookie = cookieStore.get('sessionToken');
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
 
   // check if the sessionToken cookie is still valid
   const session =
@@ -27,5 +26,16 @@ export default async function ProfilePage(props: Props) {
     redirect(`/login?returnTo=profile/${username}`);
   }
 
-  return <h2>Welcome back {username}</h2>;
+  const user = await getUser(sessionTokenCookie.value);
+  console.log(user);
+
+  if (!user) {
+    notFound();
+  }
+
+  return (
+    <div>
+      <AccountDetailsForm user={user} />
+    </div>
+  );
 }

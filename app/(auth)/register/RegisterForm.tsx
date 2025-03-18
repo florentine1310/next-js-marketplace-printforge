@@ -47,6 +47,7 @@ export default function RegisterForm(props: Props) {
       return;
     }
     router.push(getSafeReturnToPath(props.returnTo) || '/register-success');
+    router.refresh();
   }
 
   return (

@@ -1,4 +1,26 @@
 import type { Sql } from 'postgres';
+import { z } from 'zod';
+
+export type Model = {
+  id: number;
+  userId: number;
+  category: string;
+  name: string;
+  description: string;
+  stlUrl: string;
+  imageUrl: string;
+  printPrice: number;
+};
+
+export const modelSchema = z.object({
+  userId: z.number(),
+  category: z.string(),
+  name: z.string().min(3),
+  description: z.string().min(5),
+  stlUrl: z.string(),
+  imageUrl: z.string(),
+  printPrice: z.number(),
+});
 
 export async function up(sql: Sql) {
   await sql`
