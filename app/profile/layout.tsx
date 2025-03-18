@@ -36,7 +36,9 @@ export default async function ProfileLayout({ children }: Props) {
               <a href={`/profile/${user?.userName}/wishlist`}>My Wishlist</a>
             </li>
             <li>
-              <a>Model Upload</a>
+              <a href={`/profile/${user?.userName}/models-upload`}>
+                Model Upload
+              </a>
             </li>
           </ul>
         </aside>
