@@ -37,10 +37,10 @@ export default function AccountDetailsForm({ user }: { user: User }) {
     });
     const data: RegisterResponseBody = await response.json();
 
-    if ('errors' in data) {
+    /*  if ('errors' in data) {
       setErrors(data.errors);
       return;
-    }
+    } */
     setIsEditing(false);
   }
 
@@ -136,7 +136,7 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             type="number"
             value={zipCode}
             disabled={!isEditing}
-            onChange={(event) => setZipCode(event.currentTarget.value)}
+            /* onChange={(event) => setZipCode(event.currentTarget.value)} */
           />
         </label>
         <label className="fieldset-label">
