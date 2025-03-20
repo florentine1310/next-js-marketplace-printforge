@@ -20,6 +20,7 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
       users.zip_code,
       users.city,
       users.country,
+      users.profile_image,
       users.offers_printing
     FROM
       users
@@ -46,6 +47,7 @@ export const getUserInsecure = cache(async (userName: User['userName']) => {
     zip_code,
     city,
     country,
+    profile_image,
     offers_printing
   FROM
     users
@@ -70,6 +72,7 @@ export const getUserWithPasswordHashInsecure = cache(
     city,
     country,
     password_hash,
+    profile_image,
     offers_printing
   FROM
     users
@@ -90,7 +93,7 @@ export const createUserInsecure = cache(
   ) => {
     const [user] = await sql<User[]>`
       INSERT INTO
-        users (user_name, email, first_name, last_name, address, zip_code, city, country,  offers_printing, created_at, password_hash)
+        users (user_name, email, first_name, last_name, address, zip_code, city, country, profile_image, offers_printing, created_at, password_hash)
       VALUES
         (
           ${userData.userName},
@@ -101,6 +104,7 @@ export const createUserInsecure = cache(
           ${userData.zipCode},
           ${userData.city},
           ${userData.country},
+          ${userData.profileImage},
           ${userData.offersPrinting},
           CURRENT_DATE,
           ${passwordHash}
@@ -115,6 +119,7 @@ export const createUserInsecure = cache(
         users.zip_code,
         users.city,
         users.country,
+        users.profile_image,
         users.offers_printing
         ;
     `;
@@ -137,6 +142,7 @@ export const updateUser = cache(
         city = ${updatedUser.city},
         zip_code= ${updatedUser.zipCode},
         country = ${updatedUser.country},
+        profile_image= ${updatedUser.profileImage},
         offers_printing = ${updatedUser.offersPrinting}
       FROM
         sessions
@@ -154,6 +160,7 @@ export const updateUser = cache(
         users.zip_code,
         users.city,
         users.country,
+        users.profile_image,
         users.offers_printing
     `;
     return user;

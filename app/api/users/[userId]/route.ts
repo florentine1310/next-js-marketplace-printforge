@@ -54,6 +54,7 @@ export async function PUT(
       zipCode: result.data.zipCode,
       city: result.data.city,
       country: result.data.country,
+      profileImage: result.data.profileImage,
       offersPrinting: result.data.offersPrinting,
     }));
 

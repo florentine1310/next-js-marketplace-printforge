@@ -11,9 +11,8 @@ export type User = {
   zipCode: number;
   city: string;
   country: string;
-  /*   profileImage: string | null; */
+  profileImage: string | null;
   offersPrinting: boolean;
-  /*   createdAt: Date; */
 };
 
 export const registerSchema = z.object({
@@ -27,6 +26,7 @@ export const registerSchema = z.object({
   city: z.string().min(3),
   country: z.string().min(3),
   offersPrinting: z.boolean(),
+  profileImage: z.string(),
 });
 
 export const loginSchema = z.object({

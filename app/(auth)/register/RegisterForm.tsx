@@ -26,18 +26,13 @@ export default function RegisterForm(props: Props) {
   const [offersPrinting, setOffersPrinting] = useState(false);
 
   const [result, setResult] = useState<CloudinaryUploadWidgetInfo>();
-  const [imageUrl, setImageUrl] = useState<string>('');
+  const [profileImage, setProfileImage] = useState<string>('');
   const [errors, setErrors] = useState<{ message: string }[]>();
 
   const router = useRouter();
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    if (!imageUrl) {
-      alert('Please upload a profile image before registering.');
-      return;
-    }
 
     const response = await fetch('api/register', {
       method: 'POST',
@@ -52,7 +47,7 @@ export default function RegisterForm(props: Props) {
         zipCode,
         country,
         offersPrinting,
-        imageUrl,
+        profileImage,
       }),
     });
     const data: RegisterResponseBody = await response.json();
@@ -174,23 +169,27 @@ export default function RegisterForm(props: Props) {
       </h4>
       <CldUploadWidget
         signatureEndpoint="/api/sign-cloudinary-params"
-        onSuccess={(result) => {
-          if (result.event === 'success' && typeof result.info === 'string') {
-            return;
+        onSuccess={(uploadResult) => {
+          console.log('📸 Upload Result:', uploadResult);
+          if (uploadResult.event === 'success' && uploadResult.info) {
+            setResult(uploadResult.info);
+            setProfileImage(uploadResult.info.secure_url);
+            console.log('imageUrl', uploadResult.info.secure_url);
           }
-
-          setResult(result.info);
-          console.log('result', result);
         }}
       >
-        {({ open }) => <button onClick={() => open()}>Upload an Image</button>}
+        {({ open }) => (
+          <button className="btn btn-secondary" onClick={() => open()}>
+            Upload an Image
+          </button>
+        )}
       </CldUploadWidget>
       {result ? (
-        <div className="mt-8">
+        <div className="mt-8 justify-self-center">
           <CldImage
             src={result.public_id}
-            width={result.width}
-            height={result.height}
+            width={300}
+            height={300}
             alt="Uploaded Image"
           />
         </div>
