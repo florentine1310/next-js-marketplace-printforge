@@ -1,7 +1,7 @@
-import { CldImage } from 'next-cloudinary';
 import { cookies } from 'next/headers';
 import React, { type ReactNode } from 'react';
 import { getUser } from '../../database/users';
+import ProfileImage from './ProfileImage';
 
 type Props = {
   children: ReactNode;
@@ -17,7 +17,11 @@ export default async function ProfileLayout({ children }: Props) {
         <aside className="w-auto bg-white self-start">
           <div className="avatar">
             <div className="w-18 rounded-full m-4 ml-10">
-              <CldImage src="cld-sample" alt="profile image" />
+              {/* <img
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                alt="profile"
+              /> */}
+              <ProfileImage />
             </div>
           </div>
           <h2 className="font-semibold m-4 ml-10">

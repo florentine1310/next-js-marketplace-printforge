@@ -28,5 +28,10 @@ export default async function page(props: Props) {
     redirect('/');
   }
 
-  return <RegisterForm returnTo={returnTo} />;
+  return (
+    <div>
+      <h1 className="pageHeadline">User Sign-Up</h1>
+      <RegisterForm returnTo={returnTo} />
+    </div>
+  );
 }

@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  CldImage,
+  CldUploadWidget,
+  type CloudinaryUploadWidgetInfo,
+} from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { getSafeReturnToPath } from '../../../util/validation';
@@ -19,12 +24,21 @@ export default function RegisterForm(props: Props) {
   const [zipCode, setZipCode] = useState(0);
   const [country, setCountry] = useState('');
   const [offersPrinting, setOffersPrinting] = useState(false);
+
+  const [result, setResult] = useState<CloudinaryUploadWidgetInfo>();
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [errors, setErrors] = useState<{ message: string }[]>();
 
   const router = useRouter();
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!imageUrl) {
+      alert('Please upload a profile image before registering.');
+      return;
+    }
+
     const response = await fetch('api/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -38,6 +52,7 @@ export default function RegisterForm(props: Props) {
         zipCode,
         country,
         offersPrinting,
+        imageUrl,
       }),
     });
     const data: RegisterResponseBody = await response.json();
@@ -53,12 +68,12 @@ export default function RegisterForm(props: Props) {
   return (
     <form
       onSubmit={handleRegister}
-      className="fieldset w-xs bg-base-200 border border-base-300 p-4 m-10 rounded-box"
+      className="fieldset w-xl bg-base-200 border border-base-300 p-4 m-10 rounded-box justify-self-center"
     >
       <div>
-        <h2 className="text-base/7 font-semibold text-gray-900">
+        <h4 className="text-base/7 font-semibold text-gray-900">
           User Details
-        </h2>
+        </h4>
       </div>
       <label className="fieldset-label">
         Username
@@ -106,6 +121,9 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
+      <h4 className="text-base/7 font-semibold text-gray-900">
+        Address Details
+      </h4>
       <label className="fieldset-label">
         Address
         <input
@@ -151,6 +169,32 @@ export default function RegisterForm(props: Props) {
           onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
         />
       </label>
+      <h4 className="text-base/7 font-semibold text-gray-900">
+        Upload Profile Image
+      </h4>
+      <CldUploadWidget
+        signatureEndpoint="/api/sign-cloudinary-params"
+        onSuccess={(result) => {
+          if (result.event === 'success' && typeof result.info === 'string') {
+            return;
+          }
+
+          setResult(result.info);
+          console.log('result', result);
+        }}
+      >
+        {({ open }) => <button onClick={() => open()}>Upload an Image</button>}
+      </CldUploadWidget>
+      {result ? (
+        <div className="mt-8">
+          <CldImage
+            src={result.public_id}
+            width={result.width}
+            height={result.height}
+            alt="Uploaded Image"
+          />
+        </div>
+      ) : null}
       <button className="btn btn-neutral mt-4">Register</button>
       {errors?.map((error) => {
         return (

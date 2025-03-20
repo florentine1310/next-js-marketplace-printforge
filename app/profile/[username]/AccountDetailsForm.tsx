@@ -12,7 +12,7 @@ export default function AccountDetailsForm({ user }: { user: User }) {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
-  /*   const [password, setPassword] = useState(user.password); */
+
   const [address, setAddress] = useState(user.address);
   const [city, setCity] = useState(user.city);
   const [zipCode, setZipCode] = useState(user.zipCode);
@@ -37,10 +37,10 @@ export default function AccountDetailsForm({ user }: { user: User }) {
     });
     const data: RegisterResponseBody = await response.json();
 
-    /*  if ('errors' in data) {
+    if ('errors' in data) {
       setErrors(data.errors);
       return;
-    } */
+    }
     setIsEditing(false);
   }
 
@@ -68,9 +68,7 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             onChange={(event) => setEmail(event.currentTarget.value)}
           />
         </label>
-        {/*  <label className="fieldset-label">Password</label>
-        <input className="input" value={password} disabled={!isEditing} />
-        <label className="fieldset-label">First Name</label> */}
+
         <input
           className="input"
           value={firstName}
@@ -136,7 +134,7 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             type="number"
             value={zipCode}
             disabled={!isEditing}
-            /* onChange={(event) => setZipCode(event.currentTarget.value)} */
+            onChange={(event) => setZipCode()}
           />
         </label>
         <label className="fieldset-label">
