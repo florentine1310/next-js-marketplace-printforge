@@ -19,10 +19,10 @@ export async function up(sql: Sql) {
     user_id integer NOT NULL REFERENCES users (id),
     model_id integer NOT NULL REFERENCES models (id),
     quantity integer NOT NULL,
-    shipping_address varchar NOT NULL REFERENCES users (address),
-    shipping_zip_code integer NOT NULL REFERENCES users (zip_code),
-    shipping_city varchar NOT NULL REFERENCES users (city),
-    shipping_country varchar NOT NULL REFERENCES users (country),
+    shipping_address varchar NOT NULL,
+    shipping_zip_code integer NOT NULL,
+    shipping_city varchar NOT NULL,
+    shipping_country varchar NOT NULL,
     order_total numeric(10, 2) NOT NULL,
     created_at date NOT NULL
   )

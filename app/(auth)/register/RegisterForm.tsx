@@ -13,6 +13,13 @@ import type { RegisterResponseBody } from '../api/register/route';
 
 type Props = { returnTo?: string | string[] };
 
+type UploadResult =
+  | CloudinaryUploadWidgetInfo
+  | (string & {
+      secure_url?: string;
+      public_id?: string;
+    });
+
 export default function RegisterForm(props: Props) {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -25,7 +32,8 @@ export default function RegisterForm(props: Props) {
   const [country, setCountry] = useState('');
   const [offersPrinting, setOffersPrinting] = useState(false);
 
-  const [result, setResult] = useState<CloudinaryUploadWidgetInfo>();
+  const [result, setResult] = useState<UploadResult>();
+
   const [profileImage, setProfileImage] = useState<string>('');
   const [errors, setErrors] = useState<{ message: string }[]>();
 
@@ -170,16 +178,24 @@ export default function RegisterForm(props: Props) {
       <CldUploadWidget
         signatureEndpoint="/api/sign-cloudinary-params"
         onSuccess={(uploadResult) => {
-          console.log('📸 Upload Result:', uploadResult);
-          if (uploadResult.event === 'success' && uploadResult.info) {
-            setResult(uploadResult.info);
-            setProfileImage(uploadResult.info.secure_url);
-            console.log('imageUrl', uploadResult.info.secure_url);
+          if (
+            uploadResult.event === 'success' &&
+            typeof uploadResult.info !== 'string'
+          ) {
+            const uploadInfo = uploadResult.info as CloudinaryUploadWidgetInfo;
+            setResult(uploadInfo);
+            if (uploadInfo.secure_url) {
+              setProfileImage(uploadInfo.secure_url);
+            }
           }
         }}
       >
         {({ open }) => (
-          <button className="btn btn-secondary" onClick={() => open()}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => open()}
+          >
             Upload an Image
           </button>
         )}
@@ -187,7 +203,7 @@ export default function RegisterForm(props: Props) {
       {result ? (
         <div className="mt-8 justify-self-center">
           <CldImage
-            src={result.public_id}
+            src={profileImage}
             width={300}
             height={300}
             alt="Uploaded Image"

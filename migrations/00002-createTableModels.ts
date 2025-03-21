@@ -7,9 +7,9 @@ export type Model = {
   category: string;
   name: string;
   description: string;
-  stlUrl: string;
-  imageUrl: string;
-  printPrice: number;
+  stlUrl: string | null;
+  imageUrl: string | null;
+  printPrice: string;
 };
 
 export const modelSchema = z.object({
@@ -19,7 +19,7 @@ export const modelSchema = z.object({
   description: z.string().min(5),
   stlUrl: z.string(),
   imageUrl: z.string(),
-  printPrice: z.number(),
+  printPrice: z.string(),
 });
 
 export async function up(sql: Sql) {

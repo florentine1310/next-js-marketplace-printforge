@@ -1,9 +1,20 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { createModel } from '../../../database/models';
 import {
   type Model,
   modelSchema,
 } from '../../../migrations/00002-createTableModels';
+
+export type ModelUploadResponseBody =
+  | {
+      model: Omit<Model, 'id'>;
+    }
+  | {
+      errors: {
+        message: string;
+      }[];
+    };
 
 export type ModelResponseBodyPost =
   | {
@@ -37,10 +48,13 @@ export async function POST(
   const newModel =
     sessionTokenCookie &&
     (await createModel(sessionTokenCookie.value, {
-      firstName: result.data.firstName,
-      type: result.data.type,
-      accessory: result.data.accessory || null,
-      birthDate: result.data.birthDate,
+      userId: result.data.userId,
+      category: result.data.category,
+      name: result.data.name,
+      description: result.data.description,
+      stlUrl: result.data.stlUrl,
+      imageUrl: result.data.imageUrl,
+      printPrice: result.data.printPrice,
     }));
 
   if (!newModel) {

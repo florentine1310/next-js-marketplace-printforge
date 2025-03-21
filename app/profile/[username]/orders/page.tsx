@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function OrdersPage() {
-  return <div>OrdersPage</div>;
+  return (
+    <div>
+      <h3>My Orders</h3>
+    </div>
+  );
 }

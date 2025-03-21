@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import type { RegisterResponseBody } from '../../(auth)/api/register/route';
 import type { User } from '../../../migrations/00000-createTableUsers';
+import ErrorMessage from '../../ErrorMessage';
 
 export default function AccountDetailsForm({ user }: { user: User }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,6 +19,8 @@ export default function AccountDetailsForm({ user }: { user: User }) {
   const [zipCode, setZipCode] = useState(user.zipCode);
   const [country, setCountry] = useState(user.country);
   const [offersPrinting, setOffersPrinting] = useState(user.offersPrinting);
+
+  const [errors, setErrors] = useState<{ message: string }[]>();
 
   async function handleEdit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -134,7 +137,7 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             type="number"
             value={zipCode}
             disabled={!isEditing}
-            onChange={(event) => setZipCode()}
+            onChange={(event) => setZipCode(Number(event.currentTarget.value))}
           />
         </label>
         <label className="fieldset-label">
@@ -146,6 +149,13 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             onChange={(event) => setCountry(event.currentTarget.value)}
           />
         </label>
+        {errors?.map((error) => {
+          return (
+            <div key={`error-${error.message}-${Math.random()}`}>
+              <ErrorMessage>{error.message}</ErrorMessage>
+            </div>
+          );
+        })}
       </form>
     </div>
   );

@@ -86,7 +86,7 @@ export default async function RootLayout({ children }: Props) {
                 </Link>
 
                 {user ? (
-                  <div className="dropdown dropdown-hover m-2">
+                  <div className="dropdown dropdown-hover dropdown-end m-2">
                     <Link href={`/profile/${user.userName}`}>
                       <Image
                         src="/icons/user.svg"
@@ -99,6 +99,11 @@ export default async function RootLayout({ children }: Props) {
                       <li className="font-semibold pb-1">{`logged in as ${user.userName}`}</li>
                       <li>
                         <a href={`/profile/${user.userName}`}>My Account</a>
+                      </li>
+                      <li>
+                        <a href={`/profile/${user.userName}/wishlist`}>
+                          My Wishlist
+                        </a>
                       </li>
                     </ul>
                   </div>

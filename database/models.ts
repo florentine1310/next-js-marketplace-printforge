@@ -1,39 +1,49 @@
 import { cache } from 'react';
+import type { Model } from '../migrations/00002-createTableModels';
+import type { Session } from '../migrations/00004-createTableSessions';
+import { sql } from './connect';
+
+// Get Models
+
+export const getProductsInsecure = cache(async () => {
+  const models = await sql<Model[]>`
+    SELECT
+      *
+    FROM
+      models
+  `;
+  return models;
+});
 
 // Create new model
-export const createModelInsecure = cache(
-  async (
-    userData: Omit<User, 'id'>,
-    passwordHash: UserWithPasswordHash['passwordHash'],
-  ) => {
-    const [model] = await sql<User[]>`
+export const createModel = cache(
+  async (sessionToken: Session['token'], modelData: Omit<Model, 'id'>) => {
+    const [model] = await sql<Model[]>`
       INSERT INTO
-        models (user_name, email, first_name, last_name, address, zip_code, city, country,  offers_printing, created_at, password_hash)
-      VALUES
-        (
-          ${userData.userName},
-          ${userData.email.toLowerCase()},
-          ${userData.firstName},
-          ${userData.lastName},
-          ${userData.address},
-          ${userData.zipCode},
-          ${userData.city},
-          ${userData.country},
-          ${userData.offersPrinting},
-          CURRENT_DATE,
-          ${passwordHash}
-        )
+        models (user_id, category, name, description, stl_url, image_url, print_price)
+      SELECT
+          users.id,
+          ${modelData.category},
+          ${modelData.name},
+          ${modelData.description},
+          ${modelData.stlUrl},
+          ${modelData.imageUrl},
+          ${modelData.printPrice}::numeric
+          FROM sessions
+      INNER JOIN users ON users.id = sessions.user_id
+      WHERE sessions.token = ${sessionToken}
+      AND sessions.user_id = ${modelData.userId}
+      AND sessions.expiry_timestamp > now()
+
       RETURNING
-        users.id,
-        users.user_name,
-        users.email,
-        users.first_name,
-        users.last_name,
-        users.address,
-        users.zip_code,
-        users.city,
-        users.country,
-        users.offers_printing
+        models.id,
+        models.user_id,
+        models.category,
+        models.name,
+        models.description,
+        models.stl_url,
+        models.image_url,
+        models.print_price
         ;
     `;
 

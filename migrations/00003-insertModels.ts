@@ -5,11 +5,12 @@ const models = [
     id: 1,
     userId: 1,
     category: 'tools',
-    name: 'Drill Dust Collector',
-    description:
-      'The Drill Dust Collector is a fully 3D-printed, modular tool designed for enhanced dust collection and versatility',
-    stlUrl: '',
-    imageUrl: '',
+    name: 'Custom Wrench',
+    description: `Durable and lightweight 3D-printed wrench, designed for quick fixes and everyday use. Made from high-strength PLA or PETG, it's perfect for makers, tinkerers, or as a functional backup in your toolbox.`,
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/flkjtlvvoeb6orttjden.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/hbjpmf75d2jnoc0d2sas.webp',
     printPrice: 5.99,
   },
   {
@@ -19,8 +20,10 @@ const models = [
     name: 'Wall Hook Organizer',
     description:
       'A sturdy and stylish 3D-printed wall hook organizer for efficient space management.',
-    stlUrl: '',
-    imageUrl: '',
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/z1fkevn6saohk8zhq1s7.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/yaehpu1u4xla30u2dyi5.webp',
     printPrice: 3.49,
   },
   {
@@ -30,8 +33,10 @@ const models = [
     name: 'Phone Stand',
     description:
       'A sleek and ergonomic 3D-printed phone stand for hands-free use and better viewing angles.',
-    stlUrl: '',
-    imageUrl: '',
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/o1tefg9rutv8abbhxomy.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/tsuxkgtgd6c5rvasho5g.webp',
     printPrice: 4.99,
   },
   {
@@ -41,8 +46,10 @@ const models = [
     name: 'Articulated Robot',
     description:
       'A fun, movable 3D-printed robot with articulated joints for endless playtime.',
-    stlUrl: '',
-    imageUrl: '',
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/q0n9ix9czfpohu7anc6v.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/lwn7jgufluvpdpvkh7z9.webp',
     printPrice: 7.99,
   },
   {
@@ -52,8 +59,10 @@ const models = [
     name: 'Spice Jar Holder',
     description:
       'A customizable 3D-printed spice jar holder for neatly organizing kitchen essentials.',
-    stlUrl: '',
-    imageUrl: '',
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/q0n9ix9czfpohu7anc6v.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/njmgfshbilzny6okpftm.webp',
     printPrice: 6.49,
   },
   {
@@ -63,8 +72,10 @@ const models = [
     name: 'Car Cup Holder Insert',
     description:
       'A universal 3D-printed cup holder insert designed to fit most vehicle cup holders for added stability.',
-    stlUrl: '',
-    imageUrl: '',
+    stlUrl:
+      'https://res.cloudinary.com/dshcxl5an/raw/upload/v1742546129/flkjtlvvoeb6orttjden.stl',
+    imageUrl:
+      'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/xwqe3teynpiqx82hafoj.webp',
     printPrice: 5.29,
   },
 ];

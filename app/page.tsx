@@ -8,8 +8,8 @@ export default function Home() {
         }}
       >
         <div className="hero-overlay">
-          <div className="hero-content text-neutral-content text-center place-content-center">
-            <div className="max-w-md">
+          <div className="hero-content text-neutral-content place-self-center mt-20">
+            <div className="max-w-md text-center place-self-center">
               <h1 className="mb-5 text-5xl font-bold">LayerForge</h1>
               <p className="mb-5">
                 The marketplace to build anything - one layer at a time
@@ -20,7 +20,7 @@ export default function Home() {
         </div>
       </header>
       <main>
-        <h3>🔥 Hot Picks</h3>
+        <h3 className="divider">🔥 Hot Picks</h3>
         <div className="carousel carousel-center rounded-box">
           <div className="carousel-item">
             <div className="card bg-base-100 w-96 shadow-sm">
@@ -95,6 +95,7 @@ export default function Home() {
             />
           </div>
         </div>
+        <h3 className="divider">Categories</h3>
       </main>
     </div>
   );

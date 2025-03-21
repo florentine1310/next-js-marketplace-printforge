@@ -14,14 +14,14 @@ export default async function ProfileLayout({ children }: Props) {
     <div>
       <h1 className="pageHeadline">User Admin Area</h1>
       <div className="grid grid-cols-[1fr_2fr] gap-6 px-6 py-4">
-        <aside className="w-auto bg-white self-start">
+        <aside className="max-w-min bg-white self-start">
           <div className="avatar">
-            <div className="w-22 rounded-full m-4 ml-10">
+            <div className="w-22 rounded-full m-2 ml-10">
               <ProfileImage imageUrl={user?.profileImage} />
             </div>
           </div>
           <h2 className="font-semibold m-2 ml-10">
-            Welcome back {user?.userName}
+            Welcome back {user?.userName}!
           </h2>
           <ul className="menu bg-base-200 rounded-box w-56 m-4 ml-10 mb-10">
             <li>
@@ -40,9 +40,7 @@ export default async function ProfileLayout({ children }: Props) {
             </li>
           </ul>
         </aside>
-        <main className="p-8 w-xl bg-white shadow-md text-center mt-auto">
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     </div>
   );
