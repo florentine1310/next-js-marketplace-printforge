@@ -20,8 +20,6 @@ export default function CategoryFilter() {
     router.push(`?${params.toString()}`);
   }
 
-  console.log('selectedCategory', selectedCategory);
-
   return (
     <div className="filter justify-self-end mb-10 mr-20">
       <input

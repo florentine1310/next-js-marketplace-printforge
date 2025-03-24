@@ -6,12 +6,15 @@ import {
 } from '../../database/models';
 import CategoryFilter from './CategoryFilter';
 
-export default async function ModelPage({
-  searchParams,
-}: {
-  searchParams?: { category?: string };
-}) {
-  const selectedCategory = searchParams?.category ?? 'all';
+type Props = {
+  searchParams: Promise<{
+    category?: string;
+  }>;
+};
+
+export default async function ModelPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const selectedCategory = params.category ?? 'all';
   const models =
     selectedCategory === 'all'
       ? await getModelsInsecure()
