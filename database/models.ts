@@ -5,12 +5,36 @@ import { sql } from './connect';
 
 // Get Models
 
-export const getProductsInsecure = cache(async () => {
+export const getModelsInsecure = cache(async () => {
   const models = await sql<Model[]>`
     SELECT
       *
     FROM
       models
+  `;
+  return models;
+});
+
+export const getModelInsecure = cache(async (id: number) => {
+  const model = await sql<Model[]>`
+    SELECT
+      *
+    FROM
+      models
+    WHERE
+    id = ${id}
+  `;
+  return model;
+});
+
+export const getModelsByCategoryInsecure = cache(async (category: string) => {
+  const models = await sql<Model[]>`
+    SELECT
+      *
+    FROM
+      models
+    WHERE
+    category = ${category}
   `;
   return models;
 });
