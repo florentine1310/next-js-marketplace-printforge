@@ -1,10 +1,26 @@
 import type { Sql } from 'postgres';
+import { z } from 'zod';
 
 export type WishlistEntry = {
   id: number;
   userId: number;
   modelId: number;
 };
+
+export type WishlistItem = {
+  id: number | null;
+  userId: number | null;
+  modelId: number;
+  modelName: string;
+  modelCategory: string;
+  modelImageUrl: string | null;
+  modelPrintPrice: string;
+};
+
+export const wishlistEntrySchema = z.object({
+  userId: z.number(),
+  modelId: z.number(),
+});
 
 export async function up(sql: Sql) {
   await sql`

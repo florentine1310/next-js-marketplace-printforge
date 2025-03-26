@@ -1,16 +1,12 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 export default function CategoryFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
   function handleFilter(category: string) {
-    setSelectedCategory(category);
     const params = new URLSearchParams(searchParams.toString());
     if (category === 'all') {
       params.delete('category');

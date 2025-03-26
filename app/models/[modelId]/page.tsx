@@ -1,7 +1,11 @@
+import { cookies } from 'next/headers';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 import { getModelInsecure } from '../../../database/models';
+import { getValidSessionToken } from '../../../database/sessions';
+import { getUser } from '../../../database/users';
+import AddToWishlistButton from './AddToWishlistButton';
 
 type Props = {
   params: Promise<{
@@ -17,6 +21,25 @@ export default async function ModelDetailsPage(props: Props) {
   console.log('singleModel', singleModel);
 
   if (!singleModel) notFound();
+
+  // get the session token from the cookie
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  // check if the sessionToken cookie is still valid
+  const session =
+    sessionTokenCookie &&
+    (await getValidSessionToken(sessionTokenCookie.value));
+
+  // if the session token is invalid or doesn't exist redirect user to login page
+
+  if (!session) {
+    redirect(`/login?returnTo=models/${singleModel.id}`);
+  }
+  const user = await getUser(sessionTokenCookie.value);
+
+  if (!user) {
+    notFound();
+  }
 
   return (
     <div>
@@ -51,16 +74,8 @@ export default async function ModelDetailsPage(props: Props) {
           <div className="p-2 font-semibold">
             Print Price: {singleModel.printPrice}
           </div>
-          <div className="flex gap-2 p-2 mb-2 mt-2">
-            <Image
-              src="/icons/heart.svg"
-              alt="heart"
-              width={25}
-              height={25}
-              className="cursor-pointer"
-            />
-            <p>Add to Wishlist</p>
-          </div>
+          <AddToWishlistButton modelId={singleModel.id} userId={user.id} />
+
           <button className="btn btn-primary">
             <Image
               src="/icons/download-white.svg"
