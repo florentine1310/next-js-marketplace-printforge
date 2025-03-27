@@ -13,6 +13,14 @@ type Props = {
   children: ReactNode;
 };
 
+type CartItem = {
+  id: number;
+  name: string;
+  printPrice: string;
+  imageUrl: string | null;
+  quantity: number;
+};
+
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
@@ -30,6 +38,16 @@ const montserrat = Montserrat({
 export default async function RootLayout({ children }: Props) {
   const sessionTokenCookie = (await cookies()).get('sessionToken');
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie.value));
+
+  const cartItemsCookie = (await cookies()).get('cart');
+
+  const cartItems: CartItem[] = !cartItemsCookie
+    ? []
+    : (JSON.parse(cartItemsCookie.value) as CartItem[]);
+  const totalQuantity = cartItems.reduce(
+    (acc: number, item: CartItem) => acc + item.quantity,
+    0,
+  );
 
   return (
     <html lang="en" data-theme="corporate" className={montserrat.className}>
@@ -77,12 +95,19 @@ export default async function RootLayout({ children }: Props) {
 
               <div className="navbar-end">
                 <Link href="/cart" className="m-4">
-                  <Image
-                    src="/icons/shopping-cart.svg"
-                    alt="cart"
-                    width={25}
-                    height={25}
-                  />
+                  <div className="relative">
+                    <Image
+                      src="/icons/shopping-cart.svg"
+                      alt="cart"
+                      width={25}
+                      height={25}
+                    />
+                    {totalQuantity > 0 && (
+                      <span className="badge badge-xs badge-info text-xs absolute -top-3.5 -right-4">
+                        {totalQuantity}
+                      </span>
+                    )}
+                  </div>
                 </Link>
 
                 {user ? (

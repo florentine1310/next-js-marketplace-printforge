@@ -10,6 +10,7 @@ type Props = {
 export default async function ProfileLayout({ children }: Props) {
   const sessionTokenCookie = (await cookies()).get('sessionToken');
   const user = sessionTokenCookie && (await getUser(sessionTokenCookie.value));
+
   return (
     <div>
       <h1 className="pageHeadline">User Admin Area</h1>

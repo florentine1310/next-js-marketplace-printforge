@@ -5,6 +5,7 @@ import React from 'react';
 import { getModelInsecure } from '../../../database/models';
 import { getValidSessionToken } from '../../../database/sessions';
 import { getUser } from '../../../database/users';
+import AddToCartButton from './AddToCartButton';
 import AddToWishlistButton from './AddToWishlistButton';
 
 type Props = {
@@ -74,34 +75,29 @@ export default async function ModelDetailsPage(props: Props) {
           <div className="p-2 font-semibold">
             Print Price: {singleModel.printPrice}
           </div>
+
           <AddToWishlistButton modelId={singleModel.id} userId={user.id} />
-          {singleModel.stlUrl && (
-            <a
-              href={singleModel.stlUrl}
-              download
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              <Image
-                src="/icons/download-white.svg"
-                alt="download"
-                width={25}
-                height={25}
-                className="cursor-pointer mr-1"
-              />
-              Download File
-            </a>
-          )}
-          <button className="btn btn-primary ml-3">
-            <Image
-              src="/icons/printer-white.svg"
-              alt="printer"
-              width={25}
-              height={25}
-              className="cursor-pointer mr-1"
-            />
-            Get It Printed
-          </button>
+          <div className="flex">
+            {singleModel.stlUrl && (
+              <a
+                href={singleModel.stlUrl}
+                download
+                target="blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <Image
+                  src="/icons/download-white.svg"
+                  alt="download"
+                  width={25}
+                  height={25}
+                  className="cursor-pointer mr-1"
+                />
+                Download File
+              </a>
+            )}
+            <AddToCartButton selectedModel={singleModel} />
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-20 bg-gray-300">
