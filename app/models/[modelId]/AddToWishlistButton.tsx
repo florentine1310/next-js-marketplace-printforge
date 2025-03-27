@@ -12,6 +12,7 @@ type Props = {
 
 export default function AddToWishlistButton({ modelId, userId }: Props) {
   const [errors, setErrors] = useState<{ message: string }[]>();
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   async function handleAddToWishlist() {
     const response = await fetch(`/api/wishlist/`, {
@@ -27,13 +28,13 @@ export default function AddToWishlistButton({ modelId, userId }: Props) {
       setErrors(data.errors);
       return;
     }
-    console.log('data', data);
+    setIsWishlisted(true);
   }
 
   return (
     <div className="flex gap-2 p-2 mb-2 mt-2">
       <Image
-        src="/icons/heart.svg"
+        src={isWishlisted ? '/icons/heart-filled.svg' : '/icons/heart.svg'}
         alt="heart"
         width={25}
         height={25}

@@ -75,18 +75,24 @@ export default async function ModelDetailsPage(props: Props) {
             Print Price: {singleModel.printPrice}
           </div>
           <AddToWishlistButton modelId={singleModel.id} userId={user.id} />
-
-          <button className="btn btn-primary">
-            <Image
-              src="/icons/download-white.svg"
-              alt="download"
-              width={25}
-              height={25}
-              className="cursor-pointer mr-1"
-            />
-            Download File
-          </button>
-          <button className="btn btn-primary">
+          {singleModel.stlUrl && (
+            <a
+              href={singleModel.stlUrl}
+              download
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              <Image
+                src="/icons/download-white.svg"
+                alt="download"
+                width={25}
+                height={25}
+                className="cursor-pointer mr-1"
+              />
+              Download File
+            </a>
+          )}
+          <button className="btn btn-primary ml-3">
             <Image
               src="/icons/printer-white.svg"
               alt="printer"
