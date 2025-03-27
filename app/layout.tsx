@@ -170,7 +170,7 @@ export default async function RootLayout({ children }: Props) {
           </div>
         </header>
         <main>{children}</main>
-        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+        <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10 mt-auto">
           LayerForge ®
           <div>
             <h4>Services</h4>
