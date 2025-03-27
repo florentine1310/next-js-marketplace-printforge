@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 import React from 'react';
 import { calculateOrderTotal } from '../../util/calculateOrderTotal';
+import CheckoutButton from './CheckoutButton';
 import DeleteCartItemButton from './DeleteCartItemButton';
 
 type CartItem = {
@@ -30,7 +32,7 @@ export default async function CartPage() {
       <h1 className="pageHeadline">Shopping Cart</h1>
       {totalQuantity > 0 ? (
         <div>
-          <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mx-15 my-10">
+          <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mx-20 my-10">
             <table className="table">
               <thead>
                 <tr>
@@ -80,9 +82,9 @@ export default async function CartPage() {
             </table>
           </div>
           <div className="flex">
-            <button className="btn btn-primary ml-auto mr-15 mb-10">
-              Proceed To Checkout
-            </button>
+            <Link className="ml-auto mr-20 mb-10" href="/checkout">
+              <CheckoutButton />
+            </Link>
           </div>
         </div>
       ) : (
