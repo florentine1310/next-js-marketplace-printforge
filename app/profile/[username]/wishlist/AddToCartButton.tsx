@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
-import type { Model } from '../../../migrations/00002-createTableModels';
-import reduceCookieValue from '../../../util/reduceCookieValue';
+import type { Model } from '../../../../migrations/00002-createTableModels';
+import reduceCookieValue from '../../../../util/reduceCookieValue';
 import { createCookie } from './actions';
 
 type Props = {
@@ -11,7 +10,9 @@ type Props = {
 };
 
 export default function AddToCartButton({ selectedModel }: Props) {
+
   const quantity = 1;
+
   const cookieValue = reduceCookieValue(selectedModel, quantity);
 
   return (

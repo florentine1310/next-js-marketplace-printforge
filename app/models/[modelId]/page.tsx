@@ -19,8 +19,6 @@ export default async function ModelDetailsPage(props: Props) {
     Number((await props.params).modelId),
   );
 
-  console.log('singleModel', singleModel);
-
   if (!singleModel) notFound();
 
   // get the session token from the cookie

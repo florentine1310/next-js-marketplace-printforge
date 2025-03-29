@@ -4,6 +4,7 @@ import {
   getModelsByCategoryInsecure,
   getModelsInsecure,
 } from '../../database/models';
+import ModelDetailsButton from '../components/ModelDetailsButton';
 import CategoryFilter from './CategoryFilter';
 
 type Props = {
@@ -51,7 +52,9 @@ export default async function ModelPage({ searchParams }: Props) {
                 <p>{model.description}</p>
 
                 <div className="card-actions">
-                  <button className="btn btn-primary">Model Details</button>
+                  <Link href={`/models/${model.id}`}>
+                    <ModelDetailsButton />
+                  </Link>
                 </div>
               </div>
             </div>

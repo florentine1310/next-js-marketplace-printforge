@@ -1,10 +1,14 @@
 import { cookies } from 'next/headers';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react';
+import { getModelInsecure } from '../../../../database/models';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser } from '../../../../database/users';
 import { getWishlistItemsInsecure } from '../../../../database/wishlist';
+import ModelDetailsButton from '../../../components/ModelDetailsButton';
+import AddToCartButton from './AddToCartButton';
 import DeleteFromWishlistButton from './DeleteFromWishlistButton';
 
 type Props = {
@@ -36,12 +40,19 @@ export default async function WishlistPage(props: Props) {
   }
 
   const wishlistItems = await getWishlistItemsInsecure(user.id);
+  const wishlistModels = await Promise.all(
+    wishlistItems.map(async (wishlistItem) => {
+      const [model] = await getModelInsecure(Number(wishlistItem.modelId));
+
+      return { model, wishlistItem: wishlistItem };
+    }),
+  );
 
   return (
     <section>
       <h3>My Wishlist</h3>
       <ul className="list bg-base-100 rounded-box shadow-md">
-        {wishlistItems.map((wishlistItem) => {
+        {wishlistModels.map(({ model, wishlistItem }) => {
           return (
             <li key={`wishlist-${wishlistItem.id}`} className="list-row">
               <div>
@@ -63,17 +74,10 @@ export default async function WishlistPage(props: Props) {
               <div className="content-center text-xs uppercase font-semibold opacity-60">
                 Print price: {wishlistItem.modelPrintPrice}
               </div>
-              <button className="btn btn-secondary">Model Details</button>
-              <button className="btn btn-primary">
-                <Image
-                  src="/icons/printer-white.svg"
-                  alt="printer"
-                  width={25}
-                  height={25}
-                  className="cursor-pointer mr-1"
-                />
-                Get It Printed
-              </button>
+              <Link href={`/models/${wishlistItem.modelId}`}>
+                <ModelDetailsButton />
+              </Link>
+              {model && <AddToCartButton selectedModel={model} />}
               <DeleteFromWishlistButton
                 modelId={wishlistItem.modelId}
                 userId={user.id}

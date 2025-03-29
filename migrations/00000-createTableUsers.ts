@@ -43,6 +43,7 @@ export const userSchema = z.object({
   zipCode: z.number(),
   city: z.string().min(3),
   country: z.string().min(3),
+  profileImage: z.string(),
   offersPrinting: z.boolean(),
 });
 
