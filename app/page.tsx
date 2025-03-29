@@ -96,6 +96,60 @@ export default function Home() {
           </div>
         </div>
         <h3 className="divider">Categories</h3>
+        <div className="grid grid-cols-2 gap-4 justify-items-center mb-10">
+          <div>
+            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+              <div className="card-body">
+                <h2 className="card-title">Home</h2>
+                <p>
+                  A card component has a figure, a body part, and inside body
+                  there are title and actions parts
+                </p>
+                <div className="justify-end card-actions">
+                  <button className="btn btn-primary">Go To Category</button>
+                </div>
+              </div>
+            </div>
+            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+              <div className="card-body">
+                <h2 className="card-title">Tools</h2>
+                <p>
+                  A card component has a figure, a body part, and inside body
+                  there are title and actions parts
+                </p>
+                <div className="justify-end card-actions">
+                  <button className="btn btn-primary">Go To Category</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+              <div className="card-body">
+                <h2 className="card-title">Toys</h2>
+                <p>
+                  A card component has a figure, a body part, and inside body
+                  there are title and actions parts
+                </p>
+                <div className="justify-end card-actions">
+                  <button className="btn btn-primary">Go To Category</button>
+                </div>
+              </div>
+            </div>
+            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+              <div className="card-body">
+                <h2 className="card-title">Gadgets</h2>
+                <p>
+                  A card component has a figure, a body part, and inside body
+                  there are title and actions parts
+                </p>
+                <div className="justify-end card-actions">
+                  <button className="btn btn-primary">Go To Category</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

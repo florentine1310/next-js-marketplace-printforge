@@ -22,6 +22,15 @@ export const modelSchema = z.object({
   printPrice: z.string(),
 });
 
+export const modelUploadSchema = z.object({
+  userId: z.number(),
+  category: z.string(),
+  name: z.string().min(3),
+  description: z.string().min(5),
+  imageUrl: z.string(),
+  printPrice: z.string(),
+});
+
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE models (
