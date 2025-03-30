@@ -2,85 +2,65 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react';
-import { getModelInsecure } from '../../../../database/models';
+import { getModelsByUser } from '../../../../database/models';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser } from '../../../../database/users';
-import { getWishlistItemsInsecure } from '../../../../database/wishlist';
 import ModelDetailsButton from '../../../components/ModelDetailsButton';
-import AddToCartButton from './AddToCartButton';
-import DeleteFromWishlistButton from './DeleteFromWishlistButton';
+import DeleteModelButton from './DeleteModelButton';
 
 type Props = {
   params: Promise<{ username: string }>;
 };
 
-export default async function WishlistPage(props: Props) {
+export default async function MyModelsPage(props: Props) {
   const { username } = await props.params;
-
-  // get the session token from the cookie
   const sessionTokenCookie = (await cookies()).get('sessionToken');
-
-  // check if the sessionToken cookie is still valid
   const session =
     sessionTokenCookie &&
     (await getValidSessionToken(sessionTokenCookie.value));
-
-  // if the session token is invalid or doesn't exist redirect user to login page
-
-  // if the session cookie is valid redirect to homepage
   if (!session) {
     redirect(`/login?returnTo=profile/${username}`);
   }
-
   const user = await getUser(sessionTokenCookie.value);
 
   if (!user) {
     notFound();
   }
-
-  const wishlistItems = await getWishlistItemsInsecure(user.id);
-  const wishlistModels = await Promise.all(
-    wishlistItems.map(async (wishlistItem) => {
-      const [model] = await getModelInsecure(Number(wishlistItem.modelId));
-
-      return { model, wishlistItem: wishlistItem };
-    }),
-  );
+  const models = await getModelsByUser(sessionTokenCookie.value, user.id);
 
   return (
     <section>
-      <h3>My Wishlist</h3>
+      <h3>My 3D Models</h3>
       <ul className="list bg-base-100 rounded-box shadow-md">
-        {wishlistModels.map(({ model, wishlistItem }) => {
+        {models.map((model) => {
           return (
-            <li key={`wishlist-${wishlistItem.id}`} className="list-row">
+            <li key={`wishlist-${model.id}`} className="list-row">
               <div>
                 <img
                   className="size-10 rounded-box"
                   src={
-                    wishlistItem.modelImageUrl ??
+                    model.imageUrl ??
                     'https://placehold.co/400x400?text=No+Image+Available&font=roboto'
                   }
                   alt="model"
                 />
               </div>
               <div>
-                <div>{wishlistItem.modelName}</div>
+                <div>{model.name}</div>
                 <div className="text-xs uppercase font-semibold opacity-60">
-                  {wishlistItem.modelCategory}
+                  {model.category}
                 </div>
               </div>
-              <div className="content-center text-xs uppercase font-semibold opacity-60">
-                Print price: {wishlistItem.modelPrintPrice}
+              <div className="content-center text-xs pr-8">
+                {model.description}
               </div>
-              <Link href={`/models/${wishlistItem.modelId}`}>
+              <div className="content-center text-xs uppercase font-semibold opacity-60">
+                Print price: {model.printPrice}
+              </div>
+              <Link href={`/models/${model.id}`}>
                 <ModelDetailsButton />
               </Link>
-              {model && <AddToCartButton selectedModel={model} />}
-              <DeleteFromWishlistButton
-                modelId={wishlistItem.modelId}
-                userId={user.id}
-              />
+              <DeleteModelButton modelId={model.id} />
             </li>
           );
         })}

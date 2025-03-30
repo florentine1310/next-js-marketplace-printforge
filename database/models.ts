@@ -39,6 +39,22 @@ export const getModelsByCategoryInsecure = cache(async (category: string) => {
   return models;
 });
 
+export const getModelsByUser = cache(
+  async (sessionToken: Session['token'], userId: number) => {
+    const models = await sql<Model[]>`
+    SELECT
+      models.*
+    FROM
+      models
+    INNER JOIN sessions ON sessions.user_id = models.user_id
+      WHERE sessions.token = ${sessionToken}
+      AND sessions.user_id = ${userId}
+      AND sessions.expiry_timestamp > now()
+  `;
+    return models;
+  },
+);
+
 // Create new model
 export const createModel = cache(
   async (sessionToken: Session['token'], modelData: Omit<Model, 'id'>) => {
@@ -69,6 +85,25 @@ export const createModel = cache(
         models.image_url,
         models.print_price
         ;
+    `;
+
+    return model;
+  },
+);
+
+// Delete Model
+
+export const deleteModelById = cache(
+  async (sessionToken: Session['token'], modelId: number) => {
+    const [model] = await sql<Model[]>`
+      DELETE FROM models USING sessions
+
+      WHERE sessions.token = ${sessionToken}
+      AND sessions.expiry_timestamp > now()
+      AND models.id = ${modelId}
+
+      RETURNING
+        models.*
     `;
 
     return model;

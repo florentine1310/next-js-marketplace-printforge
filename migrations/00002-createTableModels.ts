@@ -31,6 +31,10 @@ export const modelUploadSchema = z.object({
   printPrice: z.string(),
 });
 
+export const modelDeleteSchema = z.object({
+  modelId: z.number(),
+});
+
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE models (

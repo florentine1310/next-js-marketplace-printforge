@@ -34,14 +34,26 @@ export default async function ProfileLayout({ children }: Props) {
             <li>
               <a href={`/profile/${user?.userName}/wishlist`}>My Wishlist</a>
             </li>
-            <li>
-              <a href={`/profile/${user?.userName}/models-upload`}>
-                Model Upload
-              </a>
-            </li>
+            {user?.offersPrinting && (
+              <div>
+                <li>
+                  <a href={`/profile/${user.userName}/models-upload`}>
+                    Model Upload
+                  </a>
+                </li>
+                <li>
+                  <a href={`/profile/${user.userName}/models`}>My 3D Models</a>
+                </li>
+                <li>
+                  <a href={`/profile/${user.userName}/print-jobs`}>
+                    My Print Jobs
+                  </a>
+                </li>
+              </div>
+            )}
           </ul>
         </aside>
-        <main>{children}</main>
+        <main className="pr-10">{children}</main>
       </div>
     </div>
   );

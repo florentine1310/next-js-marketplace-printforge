@@ -47,6 +47,18 @@ export const userSchema = z.object({
   offersPrinting: z.boolean(),
 });
 
+export const userEditSchema = z.object({
+  userName: z.string().min(3),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
+  email: z.string().email({ message: 'Invalid email address' }),
+  address: z.string().min(3),
+  zipCode: z.number(),
+  city: z.string().min(3),
+  country: z.string().min(3),
+  offersPrinting: z.boolean(),
+});
+
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE users (

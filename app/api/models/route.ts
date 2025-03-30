@@ -1,9 +1,10 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createModel } from '../../../database/models';
+import { createModel, deleteModelById } from '../../../database/models';
 import {
   type Model,
+  modelDeleteSchema,
   modelUploadSchema,
 } from '../../../migrations/00002-createTableModels';
 
@@ -25,6 +26,14 @@ export type ModelResponseBodyPost =
       error: string;
     };
 
+export type ModelResponseBodyDelete =
+  | {
+      deletedModel: Model;
+    }
+  | {
+      error: string;
+    };
+
 type CloudinaryResponse = {
   secure_url: string;
 };
@@ -34,6 +43,8 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+// Upload Model API
 
 export async function POST(
   request: Request,
@@ -128,4 +139,45 @@ export async function POST(
   }
 
   return NextResponse.json({ model: newModel });
+}
+
+// Delete Model by ID API
+
+export async function DELETE(
+  request: Request,
+): Promise<NextResponse<ModelResponseBodyDelete>> {
+  // get body from client and parse it
+  const requestBody = await request.json();
+
+  // validate information from client
+  const result = modelDeleteSchema.safeParse(requestBody);
+
+  // If client sends request body with incorrect data,
+  // return a response with a 400 status code to the client
+  if (!result.success) {
+    return NextResponse.json(
+      {
+        error: 'Request does not contain model id',
+      },
+      { status: 400 },
+    );
+  }
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  const modelToDelete =
+    sessionTokenCookie &&
+    (await deleteModelById(sessionTokenCookie.value, result.data.modelId));
+
+  if (!modelToDelete) {
+    return NextResponse.json(
+      {
+        error: 'Model not deleted or access denied for deleting model',
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+
+  return NextResponse.json({ deletedModel: modelToDelete });
 }

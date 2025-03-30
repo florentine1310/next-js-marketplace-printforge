@@ -1,17 +1,19 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import type { ZodIssue } from 'zod';
 import { updateUser } from '../../../../database/users';
 import {
   type User,
-  userSchema,
+  userEditSchema,
 } from '../../../../migrations/00000-createTableUsers';
 
 export type UserResponseBodyPut =
   | {
-      user: User;
+      user: Omit<User, 'profileImage'>;
     }
   | {
       error: string;
+      errorIssues?: ZodIssue[];
     };
 
 type UserParams = {
@@ -26,12 +28,12 @@ export async function PUT(
 ): Promise<NextResponse<UserResponseBodyPut>> {
   const requestBody = await request.json();
 
-  const result = userSchema.safeParse(requestBody);
+  const result = userEditSchema.safeParse(requestBody);
 
   if (!result.success) {
     return NextResponse.json(
       {
-        error: 'Request does not contain user object',
+        error: 'Request does not contain valid user object',
         errorIssues: result.error.issues,
       },
       {
@@ -54,7 +56,6 @@ export async function PUT(
       zipCode: result.data.zipCode,
       city: result.data.city,
       country: result.data.country,
-      profileImage: result.data.profileImage,
       offersPrinting: result.data.offersPrinting,
     }));
 

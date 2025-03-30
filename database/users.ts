@@ -131,8 +131,11 @@ export const createUserInsecure = cache(
 // Update existing user
 
 export const updateUser = cache(
-  async (sessionToken: Session['token'], updatedUser: User) => {
-    const [user] = await sql<User[]>`
+  async (
+    sessionToken: Session['token'],
+    updatedUser: Omit<User, 'profileImage'>,
+  ) => {
+    const [user] = await sql<Omit<User, 'profileImage'>[]>`
       UPDATE users
       SET
         first_name = ${updatedUser.firstName},
@@ -142,7 +145,6 @@ export const updateUser = cache(
         city = ${updatedUser.city},
         zip_code= ${updatedUser.zipCode},
         country = ${updatedUser.country},
-        profile_image= ${updatedUser.profileImage},
         offers_printing = ${updatedUser.offersPrinting}
       FROM
         sessions
@@ -160,7 +162,6 @@ export const updateUser = cache(
         users.zip_code,
         users.city,
         users.country,
-        users.profile_image,
         users.offers_printing
     `;
     return user;

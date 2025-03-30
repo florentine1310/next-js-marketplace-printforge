@@ -27,7 +27,6 @@ export default async function ProfilePage(props: Props) {
   }
 
   const user = await getUser(sessionTokenCookie.value);
-  console.log(user);
 
   if (!user) {
     notFound();

@@ -1,13 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import type { RegisterResponseBody } from '../../(auth)/api/register/route';
 import type { User } from '../../../migrations/00000-createTableUsers';
+import type { UserResponseBodyPut } from '../../api/users/[userId]/route';
 import ErrorMessage from '../../ErrorMessage';
 
 export default function AccountDetailsForm({ user }: { user: User }) {
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
 
   const userName = user.userName;
   const [firstName, setFirstName] = useState(user.firstName);
@@ -38,19 +40,28 @@ export default function AccountDetailsForm({ user }: { user: User }) {
         offersPrinting,
       }),
     });
-    const data: RegisterResponseBody = await response.json();
+    const data: UserResponseBodyPut = await response.json();
 
-    if ('errors' in data) {
-      setErrors(data.errors);
+    if ('errorIssues' in data && Array.isArray(data.errorIssues)) {
+      const zodIssues = data.errorIssues.map((issue) => ({
+        message: issue.message,
+      }));
+      setErrors(zodIssues);
+      return;
+    }
+
+    if ('error' in data) {
+      setErrors([{ message: data.error }]);
       return;
     }
     setIsEditing(false);
+    router.refresh();
   }
 
   return (
     <div>
       <div className="flex">
-        <h3>My User Details</h3>
+        <h3>My User Account Details</h3>
 
         <Image
           src="/icons/edit-3.svg"
@@ -71,13 +82,15 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             onChange={(event) => setEmail(event.currentTarget.value)}
           />
         </label>
-
-        <input
-          className="input"
-          value={firstName}
-          disabled={!isEditing}
-          onChange={(event) => setFirstName(event.currentTarget.value)}
-        />
+        <label className="fieldset-label">
+          First Name
+          <input
+            className="input"
+            value={firstName}
+            disabled={!isEditing}
+            onChange={(event) => setFirstName(event.currentTarget.value)}
+          />
+        </label>
         <label className="fieldset-label">
           Last Name
           <input
@@ -96,22 +109,6 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
           />
         </label>
-        {isEditing && (
-          <button className="btn btn-neutral mt-4 w-full">Save Changes</button>
-        )}
-      </form>
-      <div className="flex">
-        <h3>My Address</h3>
-        <Image
-          src="/icons/edit-3.svg"
-          alt="user"
-          width={25}
-          height={25}
-          onClick={() => setIsEditing(!isEditing)}
-          className="cursor-pointer"
-        />
-      </div>
-      <form>
         <label className="fieldset-label">
           Address
           <input
@@ -149,6 +146,9 @@ export default function AccountDetailsForm({ user }: { user: User }) {
             onChange={(event) => setCountry(event.currentTarget.value)}
           />
         </label>
+        {isEditing && (
+          <button className="btn btn-neutral mt-4 w-full">Save Changes</button>
+        )}
         {errors?.map((error) => {
           return (
             <div key={`error-${error.message}-${Math.random()}`}>
