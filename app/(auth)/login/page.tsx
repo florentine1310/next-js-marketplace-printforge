@@ -28,5 +28,10 @@ export default async function LoginPage(props: Props) {
     redirect('/');
   }
 
-  return <LoginForm returnTo={returnTo} />;
+  return (
+    <section>
+      <h1 className="pageHeadline">Login</h1>
+      <LoginForm returnTo={returnTo} />
+    </section>
+  );
 }

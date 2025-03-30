@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import type { Session } from '../../../../migrations/00004-createTableSessions';
 import type { WishlistEntryResponseBody } from '../../../api/wishlist/route';
 import ErrorMessage from '../../../ErrorMessage';
 

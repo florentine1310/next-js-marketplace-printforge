@@ -12,7 +12,7 @@ export default function LogoutButton() {
         className="btn btn-primary"
         formAction={async () => {
           await logout();
-          router.refresh();
+          router.push('/login');
         }}
       >
         Logout

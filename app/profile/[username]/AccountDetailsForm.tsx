@@ -59,9 +59,9 @@ export default function AccountDetailsForm({ user }: { user: User }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center pr-20">
       <div className="flex">
-        <h3>My User Account Details</h3>
+        <h3>Account Details</h3>
 
         <Image
           src="/icons/edit-3.svg"
@@ -73,89 +73,106 @@ export default function AccountDetailsForm({ user }: { user: User }) {
         />
       </div>
       <form onSubmit={handleEdit}>
-        <label className="fieldset-label">
-          Email
+        <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
+          <label className="fieldset-label" htmlFor="email">
+            Email{' '}
+          </label>
           <input
+            id="email"
             className="input"
             value={email}
             disabled={!isEditing}
             onChange={(event) => setEmail(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          First Name
+
+          <label className="fieldset-label" htmlFor="first-name">
+            First Name
+          </label>
           <input
+            id="first-name"
             className="input"
             value={firstName}
             disabled={!isEditing}
             onChange={(event) => setFirstName(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          Last Name
+
+          <label className="fieldset-label" htmlFor="last-name">
+            Last Name
+          </label>
           <input
+            id="last-name"
             className="input"
             value={lastName}
             disabled={!isEditing}
             onChange={(event) => setLastName(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          I have a 3D Printer and want to offer Printing Services
+
+          <label className="fieldset-label" htmlFor="address">
+            Address
+          </label>
           <input
-            type="checkbox"
-            className="toggle toggle-primary"
-            checked={offersPrinting}
-            onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
-          />
-        </label>
-        <label className="fieldset-label">
-          Address
-          <input
+            id="address"
             className="input"
             value={address}
             disabled={!isEditing}
             onChange={(event) => setAddress(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          City
+
+          <label className="fieldset-label" htmlFor="city">
+            City
+          </label>
           <input
+            id="city"
             className="input"
             value={city}
             disabled={!isEditing}
             onChange={(event) => setCity(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          Zip Code
+
+          <label className="fieldset-label" htmlFor="zip-code">
+            Zip Code{' '}
+          </label>
           <input
+            id="zip-code"
             className="input"
             type="number"
             value={zipCode}
             disabled={!isEditing}
             onChange={(event) => setZipCode(Number(event.currentTarget.value))}
           />
-        </label>
-        <label className="fieldset-label">
-          Country
+
+          <label className="fieldset-label" htmlFor="country">
+            Country{' '}
+          </label>
           <input
+            id="country"
             className="input"
             value={country}
             disabled={!isEditing}
             onChange={(event) => setCountry(event.currentTarget.value)}
           />
-        </label>
-        {isEditing && (
-          <button className="btn btn-neutral mt-4 w-full">Save Changes</button>
-        )}
-        {errors?.map((error) => {
-          return (
-            <div key={`error-${error.message}-${Math.random()}`}>
-              <ErrorMessage>{error.message}</ErrorMessage>
-            </div>
-          );
-        })}
+          <input
+            id="offer-printing"
+            type="checkbox"
+            className="toggle toggle-primary mt-4"
+            checked={offersPrinting}
+            onChange={(event) => setOffersPrinting(event.currentTarget.checked)}
+          />
+          <label className="fieldset-label mb-4" htmlFor="offer-printing">
+            I have a 3D Printer and want to offer Printing Services
+          </label>
+
+          {isEditing && (
+            <button className="btn btn-neutral mt-4 w-xs">Save Changes</button>
+          )}
+          {errors?.map((error) => {
+            return (
+              <div key={`error-${error.message}-${Math.random()}`}>
+                <ErrorMessage>{error.message}</ErrorMessage>
+              </div>
+            );
+          })}
+        </fieldset>
       </form>
     </div>
   );

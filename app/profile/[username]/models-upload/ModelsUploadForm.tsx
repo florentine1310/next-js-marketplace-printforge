@@ -77,23 +77,25 @@ export default function ModelsUploadForm({ user }: { user: User }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center pr-20">
       <h3>3D Model Upload</h3>
-      <form
-        className="fieldset w-2xl bg-base-200 border border-base-300 p-4 rounded-box"
-        onSubmit={handleUpload}
-      >
-        <label className="fieldset-label">
-          Name
+      <form onSubmit={handleUpload}>
+        <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
+          <label className="fieldset-label" htmlFor="name">
+            Model Name
+          </label>
           <input
+            id="name"
             className="input"
             value={name}
             onChange={(event) => setName(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          Choose a category:
+
+          <label className="fieldset-label" htmlFor="category">
+            Choose a category:{' '}
+          </label>
           <select
+            id="category"
             className="select validator"
             required
             onChange={(event) => setCategory(event.currentTarget.value)}
@@ -106,27 +108,33 @@ export default function ModelsUploadForm({ user }: { user: User }) {
             <option value="gadgets">Gadgets</option>
             <option value="toys">Toys</option>
           </select>
-        </label>
-        <label className="fieldset-label">
-          Description
+
+          <label className="fieldset-label" htmlFor="description">
+            Description
+          </label>
           <textarea
+            id="description"
             className="textarea"
             placeholder="Write a short description"
             value={description}
             onChange={(event) => setDescription(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          Print Price
+
+          <label className="fieldset-label" htmlFor="price">
+            Print Price{' '}
+          </label>
           <input
+            id="price"
             className="input"
             value={printPrice}
             onChange={(event) => setPrintPrice(event.currentTarget.value)}
           />
-        </label>
-        <label className="fieldset-label">
-          Upload STL File
+
+          <label className="fieldset-label" htmlFor="stl-file">
+            Upload STL File
+          </label>
           <input
+            id="stl-file"
             type="file"
             name="stlFile"
             accept=".stl"
@@ -138,59 +146,60 @@ export default function ModelsUploadForm({ user }: { user: User }) {
             }}
           />
           <p className="fieldset-label">Max size 2MB</p>
-        </label>
-        <CldUploadWidget
-          signatureEndpoint="/api/sign-cloudinary-params"
-          onSuccess={(uploadResult) => {
-            if (
-              uploadResult.event === 'success' &&
-              typeof uploadResult.info === 'object' &&
-              'secure_url' in uploadResult.info
-            ) {
-              setResult(uploadResult.info);
-              setImageUrl(uploadResult.info.secure_url);
-            }
-          }}
-        >
-          {({ open }) => (
-            <button className="btn btn-secondary" onClick={() => open()}>
-              Upload an Image
-            </button>
-          )}
-        </CldUploadWidget>
-        {result ? (
-          <div className="mt-8 justify-self-center">
-            <CldImage
-              src={result.public_id}
-              width={300}
-              height={300}
-              alt="Uploaded Image"
-            />
-          </div>
-        ) : null}
-        <button
-          className="btn btn-primary"
-          disabled={
-            !name.trim() ||
-            !category ||
-            !description.trim() ||
-            !printPrice.trim() ||
-            !stlUrl ||
-            !imageUrl
-          }
-        >
-          Upload New 3D Model
-        </button>
-        {!!successMessage && (
-          <p className="alert alert-success">{successMessage}</p>
-        )}
-        {errors?.map((error) => {
-          return (
-            <div key={`error-${error.message}-${Math.random()}`}>
-              <ErrorMessage>{error.message}</ErrorMessage>
+
+          <CldUploadWidget
+            signatureEndpoint="/api/sign-cloudinary-params"
+            onSuccess={(uploadResult) => {
+              if (
+                uploadResult.event === 'success' &&
+                typeof uploadResult.info === 'object' &&
+                'secure_url' in uploadResult.info
+              ) {
+                setResult(uploadResult.info);
+                setImageUrl(uploadResult.info.secure_url);
+              }
+            }}
+          >
+            {({ open }) => (
+              <button className="btn btn-secondary w-xs" onClick={() => open()}>
+                Upload an Image
+              </button>
+            )}
+          </CldUploadWidget>
+          {result ? (
+            <div className="mt-8 justify-self-center">
+              <CldImage
+                src={result.public_id}
+                width={300}
+                height={300}
+                alt="Uploaded Image"
+              />
             </div>
-          );
-        })}
+          ) : null}
+          <button
+            className="btn btn-primary w-xs"
+            disabled={
+              !name.trim() ||
+              !category ||
+              !description.trim() ||
+              !printPrice.trim() ||
+              !stlUrl ||
+              !imageUrl
+            }
+          >
+            Upload New 3D Model
+          </button>
+          {!!successMessage && (
+            <p className="alert alert-success">{successMessage}</p>
+          )}
+          {errors?.map((error) => {
+            return (
+              <div key={`error-${error.message}-${Math.random()}`}>
+                <ErrorMessage>{error.message}</ErrorMessage>
+              </div>
+            );
+          })}
+        </fieldset>
       </form>
     </div>
   );
