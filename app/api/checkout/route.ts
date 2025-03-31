@@ -5,7 +5,9 @@ import { createOrder } from '../../../database/orders';
 import { stripe } from '../../../lib/stripe';
 import { orderSchema } from '../../../migrations/00007-createTableOrders';
 
-export async function POST(request: Request): Promise<NextResponse> {
+export async function POST(
+  request: Request,
+): Promise<NextResponse<{ url: string } | { error: string }>> {
   try {
     const headersList = await headers();
     const origin = headersList.get('origin');

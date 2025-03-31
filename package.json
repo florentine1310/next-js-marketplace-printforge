@@ -35,7 +35,7 @@
     "@types/react-dom": "^19.0.4",
     "daisyui": "^5.0.3",
     "eslint": "^9.21.0",
-    "eslint-config-upleveled": "^9.2.0",
+    "eslint-config-upleveled": "^9.2.3",
     "libpg-query": "^16.3.0",
     "postcss": "^8",
     "prettier": "^3.5.3",
