@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import type { CheckoutResponseBody } from '../api/checkout/route';
 
 type CartItem = {
@@ -31,7 +31,7 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
     shippingZipCode,
     shippingCity,
     shippingCountry,
-    orderTotal,
+    orderTotal: orderTotal.toFixed(2),
     cartItems,
   };
 

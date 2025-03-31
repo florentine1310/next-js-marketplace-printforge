@@ -18,7 +18,7 @@ export const orderSchema = z.object({
   shippingZipCode: z.coerce.number(),
   shippingCity: z.string(),
   shippingCountry: z.string(),
-  orderTotal: z.number(),
+  orderTotal: z.string(),
   cartItems: z.array(cartItemSchema),
 });
 

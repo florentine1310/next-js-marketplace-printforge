@@ -1,6 +1,6 @@
 import { cookies, headers } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createOrderItem } from '../../../database/orderItems';
+import { createOrderItemInsecure } from '../../../database/orderItems';
 import { createOrder } from '../../../database/orders';
 import { stripe } from '../../../lib/stripe';
 import { orderSchema } from '../../../migrations/00007-createTableOrders';
@@ -55,7 +55,7 @@ export async function POST(
       );
     }
     for (const item of result.data.cartItems) {
-      await createOrderItem({
+      await createOrderItemInsecure({
         orderId: newOrder.id,
         modelId: item.id,
         quantity: item.quantity,
