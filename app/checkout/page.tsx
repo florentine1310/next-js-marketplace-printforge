@@ -1,4 +1,3 @@
-import type { SearchParams } from 'next/dist/server/request/search-params';
 import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import { getValidSessionToken } from '../../database/sessions';

@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import React from 'react';
 import { getOrdersBySessionToken } from '../../../../database/orders';
 import { getValidSessionToken } from '../../../../database/sessions';
 
@@ -38,7 +37,7 @@ export default async function OrdersPage(props: Props) {
               <th>Order Total</th>
               <th>Order Date</th>
               <th>Shipping Address</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

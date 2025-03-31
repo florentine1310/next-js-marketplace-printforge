@@ -5,9 +5,17 @@ import { createOrder } from '../../../database/orders';
 import { stripe } from '../../../lib/stripe';
 import { orderSchema } from '../../../migrations/00007-createTableOrders';
 
+export type CheckoutResponseBody =
+  | {
+      url: string;
+    }
+  | {
+      error: string;
+    };
+
 export async function POST(
   request: Request,
-): Promise<NextResponse<{ url: string } | { error: string }>> {
+): Promise<NextResponse<CheckoutResponseBody>> {
   try {
     const headersList = await headers();
     const origin = headersList.get('origin');

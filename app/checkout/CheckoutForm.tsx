@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
+import type { CheckoutResponseBody } from '../api/checkout/route';
 
 type CartItem = {
   id: number;
@@ -43,9 +44,9 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
       body: JSON.stringify(order),
     });
 
-    const data = await response.json();
+    const data: CheckoutResponseBody = await response.json();
 
-    if (data.url) {
+    if ('url' in data) {
       window.location.href = data.url;
     } else {
       console.error('Checkout error:', data.error);
@@ -61,7 +62,6 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
         </label>
         <input
           id="address"
-          type="text"
           className="input"
           value={shippingAddress}
           onChange={(event) => setShippingAddress(event.currentTarget.value)}
@@ -73,7 +73,6 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
         </label>
         <input
           id="zip-code"
-          type="text"
           className="input"
           value={shippingZipCode}
           onChange={(event) => setShippingZipCode(event.currentTarget.value)}
@@ -85,7 +84,6 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
         </label>
         <input
           id="city"
-          type="text"
           className="input"
           value={shippingCity}
           onChange={(event) => setShippingCity(event.currentTarget.value)}
@@ -97,7 +95,6 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
         </label>
         <input
           id="country"
-          type="text"
           className="input"
           value={shippingCountry}
           onChange={(event) => setShippingCountry(event.currentTarget.value)}

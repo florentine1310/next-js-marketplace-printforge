@@ -20,6 +20,7 @@ export default async function CreatedByInfo({ userId }: Props) {
                   ? userInfo.profileImage
                   : '/images/profile-placeholder.png'
               }
+              alt="creator profile"
             />
           </div>
         </div>

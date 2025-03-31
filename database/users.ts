@@ -9,7 +9,7 @@ type UserWithPasswordHash = User & {
 
 type UserInfo = {
   userName: string;
-  profileImage: string;
+  profileImage: string | null;
 };
 
 // Get User

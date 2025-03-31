@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import React from 'react';
 import { getOrdersByCreatorId } from '../../../../database/orders';
 import { getValidSessionToken } from '../../../../database/sessions';
 import { getUser } from '../../../../database/users';
@@ -40,12 +39,12 @@ export default async function PrintJobPage(props: Props) {
           <thead>
             <tr>
               <th>Order Number</th>
-              <th></th>
+              <th />
               <th>Ordered 3D Model</th>
               <th>Quantity</th>
               <th>Ordered On</th>
               <th>Ship To</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

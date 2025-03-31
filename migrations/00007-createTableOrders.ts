@@ -9,7 +9,7 @@ export type Order = {
   shippingZipCode: number;
   shippingCity: string;
   shippingCountry: string;
-  orderTotal: number;
+  orderTotal: string;
 };
 
 export const orderSchema = z.object({
