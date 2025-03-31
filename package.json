@@ -11,6 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.17",
     "@upleveled/ley": "0.9.2",
     "bcrypt": "5.1.1",
     "cloudinary": "^2.5.1",
@@ -51,7 +52,9 @@
     "onlyBuiltDependencies": [
       "bcrypt",
       "esbuild",
-      "libpg-query"
+      "libpg-query",
+      "sharp",
+      "@parcel/watcher"
     ]
   }
 }

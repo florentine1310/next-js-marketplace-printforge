@@ -1,0 +1,15 @@
+app = "layerforge-marketplace"
+primary_region = "otp"
+
+[mounts]
+  source = "postgres"
+  destination = "/postgres-volume"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
