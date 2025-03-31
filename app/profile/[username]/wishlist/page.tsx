@@ -26,8 +26,6 @@ export default async function WishlistPage(props: Props) {
     (await getValidSessionToken(sessionTokenCookie.value));
 
   // if the session token is invalid or doesn't exist redirect user to login page
-
-  // if the session cookie is valid redirect to homepage
   if (!session) {
     redirect(`/login?returnTo=profile/${username}`);
   }

@@ -8,14 +8,14 @@ export const createOrderItem = cache(
   async (orderItemData: Omit<OrderItem, 'id'>) => {
     const [orderItem] = await sql<OrderItem[]>`
       INSERT INTO
-        orderItems (order_id, model_id, quantity)
+        order_items (order_id, model_id, quantity)
       VALUES(
           ${orderItemData.orderId},
           ${orderItemData.modelId},
           ${orderItemData.quantity})
 
       RETURNING
-        orderItems.*
+        order_items.*
         ;
     `;
 

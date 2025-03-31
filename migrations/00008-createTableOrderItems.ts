@@ -18,7 +18,7 @@ export const cartItemSchema = z.object({
 
 export async function up(sql: Sql) {
   await sql`
-  CREATE TABLE orderItems (
+  CREATE TABLE order_items (
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     order_id integer NOT NULL REFERENCES orders (id),
     model_id integer NOT NULL REFERENCES models (id),
@@ -28,5 +28,5 @@ export async function up(sql: Sql) {
 }
 
 export async function down(sql: Sql) {
-  await sql`DROP TABLE orderItems`;
+  await sql`DROP TABLE order_items`;
 }
