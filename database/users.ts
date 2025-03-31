@@ -7,6 +7,11 @@ type UserWithPasswordHash = User & {
   passwordHash: string;
 };
 
+type UserInfo = {
+  userName: string;
+  profileImage: string;
+};
+
 // Get User
 export const getUser = cache(async (sessionToken: Session['token']) => {
   const [user] = await sql<User[]>`
@@ -83,6 +88,21 @@ export const getUserWithPasswordHashInsecure = cache(
     return user;
   },
 );
+
+export const getUserInfoByIdInsecure = cache(async (userId: number) => {
+  const [userInfo] = await sql<UserInfo[]>`
+  SELECT
+    user_name,
+    profile_image
+
+  FROM
+    users
+  WHERE
+    id = ${userId}
+`;
+
+  return userInfo;
+});
 
 // Create new user
 

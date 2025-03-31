@@ -7,6 +7,7 @@ import { getValidSessionToken } from '../../../database/sessions';
 import { getUser } from '../../../database/users';
 import AddToCartButton from './AddToCartButton';
 import AddToWishlistButton from './AddToWishlistButton';
+import CreatedByInfo from './CreatedByInfo';
 
 type Props = {
   params: Promise<{
@@ -67,7 +68,8 @@ export default async function ModelDetailsPage(props: Props) {
               <p>Leave a Like</p>
             </div>
           </div>
-          <p className="p-2 mt-4 mb-4">created by: {singleModel.userId}</p>
+
+          <CreatedByInfo userId={singleModel.userId} />
 
           <p className="p-2 mt-4 mb-4">{singleModel.description}</p>
           <div className="p-2 font-semibold">

@@ -55,6 +55,7 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
   return (
     <div>
       <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box m-10">
+        <legend className="fieldset-legend">Ship To</legend>
         <label className="fieldset-label" htmlFor="address">
           Address{' '}
         </label>
@@ -102,10 +103,17 @@ export default function CheckoutForm({ userId, cartItems, orderTotal }: Props) {
           onChange={(event) => setShippingCountry(event.currentTarget.value)}
           required
         />
+        <p className="mt-3">
+          By proceeding to the checkout I agree to the{' '}
+          <a className="link link-accent">
+            <strong>Terms and Conditions</strong>
+          </a>
+          .
+        </p>
 
         <button
           type="button"
-          className="btn btn-neutral mt-4 w-xs"
+          className="btn btn-primary mt-4 w-xs"
           onClick={() => startTransition(() => handleCheckout())}
           disabled={isPending}
         >

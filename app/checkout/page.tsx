@@ -58,11 +58,65 @@ export default async function CheckoutPage(props: Props) {
   return (
     <div>
       <h1 className="pageHeadline">Checkout</h1>
-      <CheckoutForm
-        userId={user.id}
-        cartItems={cartItems}
-        orderTotal={totalPrice}
-      />
+      <div className="grid grid-cols-2">
+        <div>
+          <h3>Order Overview</h3>
+          <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mx-20 my-10">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th />
+                  <th>Model</th>
+                  <th>Print Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((cartItem) => {
+                  return (
+                    <tr key={`cart-${cartItem.id}`}>
+                      <td>
+                        <img
+                          className="size-10 rounded-box"
+                          src={
+                            cartItem.imageUrl ??
+                            'https://placehold.co/400x400?text=No+Image+Available&font=roboto'
+                          }
+                          alt="model"
+                        />
+                      </td>
+                      <td>{cartItem.name}</td>
+                      <td>{cartItem.printPrice}</td>
+                      <td>{cartItem.quantity}</td>
+                      <td>
+                        {(cartItem.quantity * cartItem.printPrice).toFixed(2)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Totals</th>
+                  <td />
+                  <td />
+                  <td>{totalQuantity}</td>
+                  <td>{totalPrice}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div className="justify-items-center">
+          <h3>Delivery Address</h3>
+          <CheckoutForm
+            userId={user.id}
+            cartItems={cartItems}
+            orderTotal={totalPrice}
+          />
+        </div>
+      </div>
     </div>
   );
 }
