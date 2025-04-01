@@ -29,12 +29,18 @@ export default function ModelsUploadForm({ user }: { user: User }) {
   const [result, setResult] = useState<CloudinaryUploadWidgetInfo>();
   const [errors, setErrors] = useState<{ message: string }[]>();
   const [successMessage, setSuccessMessage] = useState('');
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   async function handleUpload(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!stlUrl) {
-      setErrors([{ message: 'Please upload an STL file' }]);
+    if (isUploadingImage) {
+      setErrors([{ message: 'Image file is currently uploading' }]);
+      return;
+    }
+
+    if (!stlUrl || !imageUrl) {
+      setErrors([{ message: 'Please upload an STL file and a Model Image' }]);
       return;
     }
 
@@ -149,6 +155,7 @@ export default function ModelsUploadForm({ user }: { user: User }) {
 
           <CldUploadWidget
             signatureEndpoint="/api/sign-cloudinary-params"
+            onOpen={() => setIsUploadingImage(true)}
             onSuccess={(uploadResult) => {
               if (
                 uploadResult.event === 'success' &&
@@ -158,10 +165,19 @@ export default function ModelsUploadForm({ user }: { user: User }) {
                 setResult(uploadResult.info);
                 setImageUrl(uploadResult.info.secure_url);
               }
+              setIsUploadingImage(false);
             }}
+            onClose={() => setIsUploadingImage(false)}
           >
             {({ open }) => (
-              <button className="btn btn-secondary w-xs" onClick={() => open()}>
+              <button
+                type="button"
+                className="btn btn-secondary w-xs"
+                onClick={(event) => {
+                  event.preventDefault();
+                  open();
+                }}
+              >
                 Upload an Image
               </button>
             )}
@@ -179,6 +195,7 @@ export default function ModelsUploadForm({ user }: { user: User }) {
           <button
             className="btn btn-primary w-xs"
             disabled={
+              isUploadingImage ||
               !name.trim() ||
               !category ||
               !description.trim() ||
