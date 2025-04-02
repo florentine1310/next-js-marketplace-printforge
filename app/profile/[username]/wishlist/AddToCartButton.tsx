@@ -10,7 +10,6 @@ type Props = {
 };
 
 export default function AddToCartButton({ selectedModel }: Props) {
-
   const quantity = 1;
 
   const cookieValue = reduceCookieValue(selectedModel, quantity);
