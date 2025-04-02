@@ -58,6 +58,16 @@ export const getWishlistItemsInsecure = cache(async (id: number) => {
   return wishlistItem;
 });
 
+// Check if item exists in wishlist and return true/false
+
+export async function isModelInWishlist(userId: number, modelId: number) {
+  const result = await sql<WishlistEntry[]>`
+    SELECT * FROM wishlist
+    WHERE user_id = ${userId} AND model_id = ${modelId}
+  `;
+  return result.length > 0;
+}
+
 // Delete wishlist item
 
 export const deleteWishlistItem = cache(

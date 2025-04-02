@@ -5,6 +5,7 @@ import React from 'react';
 import { getModelInsecure } from '../../../database/models';
 import { getValidSessionToken } from '../../../database/sessions';
 import { getUser } from '../../../database/users';
+import { isModelInWishlist } from '../../../database/wishlist';
 import AddToCartButton from './AddToCartButton';
 import AddToWishlistButton from './AddToWishlistButton';
 import CreatedByInfo from './CreatedByInfo';
@@ -41,6 +42,8 @@ export default async function ModelDetailsPage(props: Props) {
     notFound();
   }
 
+  const isWishlisted = await isModelInWishlist(user.id, singleModel.id);
+
   return (
     <div>
       <div className="grid grid-cols-2 m-15">
@@ -76,7 +79,11 @@ export default async function ModelDetailsPage(props: Props) {
             Print Price: {singleModel.printPrice}
           </div>
 
-          <AddToWishlistButton modelId={singleModel.id} userId={user.id} />
+          <AddToWishlistButton
+            modelId={singleModel.id}
+            userId={user.id}
+            initialIsWishlisted={isWishlisted}
+          />
           <div className="flex">
             {singleModel.stlUrl && (
               <a

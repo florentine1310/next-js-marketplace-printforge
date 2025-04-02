@@ -89,7 +89,10 @@ export default function LoginForm(props: Props) {
         </form>
         <div className="m-10">
           <p>
-            Not registered yet? <a className="link link-accent">Sign up here</a>
+            Not registered yet?{' '}
+            <a href="/register" className="link link-accent">
+              Sign up here
+            </a>
           </p>
         </div>
       </div>

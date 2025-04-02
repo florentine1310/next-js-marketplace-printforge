@@ -45,44 +45,53 @@ export default async function WishlistPage(props: Props) {
     }),
   );
 
+  if (wishlistModels.length) {
+    return (
+      <section>
+        <h3>My Wishlist</h3>
+
+        <ul className="list bg-base-100 rounded-box shadow-md">
+          {wishlistModels.map(({ model, wishlistItem }) => {
+            return (
+              <li key={`wishlist-${wishlistItem.id}`} className="list-row">
+                <div>
+                  <img
+                    className="size-10 rounded-box"
+                    src={
+                      wishlistItem.modelImageUrl ??
+                      'https://placehold.co/400x400?text=No+Image+Available&font=roboto'
+                    }
+                    alt="model"
+                  />
+                </div>
+                <div>
+                  <div>{wishlistItem.modelName}</div>
+                  <div className="text-xs uppercase font-semibold opacity-60">
+                    {wishlistItem.modelCategory}
+                  </div>
+                </div>
+                <div className="content-center text-xs uppercase font-semibold opacity-60">
+                  Print price: {wishlistItem.modelPrintPrice}
+                </div>
+                <Link href={`/models/${wishlistItem.modelId}`}>
+                  <ModelDetailsButton />
+                </Link>
+                {model && <AddToCartButton selectedModel={model} />}
+                <DeleteFromWishlistButton
+                  modelId={wishlistItem.modelId}
+                  userId={user.id}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    );
+  }
   return (
     <section>
       <h3>My Wishlist</h3>
-      <ul className="list bg-base-100 rounded-box shadow-md">
-        {wishlistModels.map(({ model, wishlistItem }) => {
-          return (
-            <li key={`wishlist-${wishlistItem.id}`} className="list-row">
-              <div>
-                <img
-                  className="size-10 rounded-box"
-                  src={
-                    wishlistItem.modelImageUrl ??
-                    'https://placehold.co/400x400?text=No+Image+Available&font=roboto'
-                  }
-                  alt="model"
-                />
-              </div>
-              <div>
-                <div>{wishlistItem.modelName}</div>
-                <div className="text-xs uppercase font-semibold opacity-60">
-                  {wishlistItem.modelCategory}
-                </div>
-              </div>
-              <div className="content-center text-xs uppercase font-semibold opacity-60">
-                Print price: {wishlistItem.modelPrintPrice}
-              </div>
-              <Link href={`/models/${wishlistItem.modelId}`}>
-                <ModelDetailsButton />
-              </Link>
-              {model && <AddToCartButton selectedModel={model} />}
-              <DeleteFromWishlistButton
-                modelId={wishlistItem.modelId}
-                userId={user.id}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <p className="text-center text-lg">Your wishlist is currently empty 😔</p>
     </section>
   );
 }

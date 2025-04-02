@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { WishlistEntryResponseBody } from '../../api/wishlist/route';
 import ErrorMessage from '../../ErrorMessage';
@@ -8,11 +9,17 @@ import ErrorMessage from '../../ErrorMessage';
 type Props = {
   modelId: number;
   userId: number;
+  initialIsWishlisted: boolean;
 };
 
-export default function AddToWishlistButton({ modelId, userId }: Props) {
+export default function AddToWishlistButton({
+  modelId,
+  userId,
+  initialIsWishlisted,
+}: Props) {
   const [errors, setErrors] = useState<{ message: string }[]>();
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(initialIsWishlisted);
+  const router = useRouter();
 
   async function handleAddToWishlist() {
     const response = await fetch(`/api/wishlist/`, {
@@ -31,16 +38,45 @@ export default function AddToWishlistButton({ modelId, userId }: Props) {
     setIsWishlisted(true);
   }
 
+  async function handleDeleteFromWishlist() {
+    const response = await fetch(`/api/wishlist/`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        userId,
+        modelId,
+      }),
+    });
+    const data: WishlistEntryResponseBody = await response.json();
+
+    if ('errors' in data) {
+      setErrors(data.errors);
+      return;
+    }
+    setIsWishlisted(false);
+    router.refresh();
+  }
+
   return (
     <div className="flex gap-2 p-2 mb-2 mt-2">
-      <Image
-        src={isWishlisted ? '/icons/heart-filled.svg' : '/icons/heart.svg'}
-        alt="heart"
-        width={25}
-        height={25}
-        onClick={handleAddToWishlist}
-        className="cursor-pointer"
-      />
+      {isWishlisted ? (
+        <Image
+          src="/icons/heart-filled.svg"
+          alt="heart"
+          width={25}
+          height={25}
+          onClick={handleDeleteFromWishlist}
+          className="cursor-pointer"
+        />
+      ) : (
+        <Image
+          src="/icons/heart.svg"
+          alt="heart"
+          width={25}
+          height={25}
+          onClick={handleAddToWishlist}
+          className="cursor-pointer"
+        />
+      )}
 
       <p>Add to Wishlist</p>
       {errors?.map((error) => {

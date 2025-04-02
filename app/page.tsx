@@ -8,7 +8,7 @@ export default function Home() {
         }}
       >
         <div className="hero-overlay">
-          <div className="hero-content text-neutral-content place-self-center mt-20">
+          <div className="hero-content text-neutral-content place-self-center mt-20 px-4 sm:px-0">
             <div className="max-w-md text-center place-self-center">
               <h1 className="mb-5 text-5xl font-bold">LayerForge</h1>
               <p className="mb-5">
@@ -22,10 +22,10 @@ export default function Home() {
       <main>
         <h3 className="divider">🔥 Hot Picks</h3>
 
-        <div className="carousel flex space-x-4 px-4">
+        <div className="carousel flex space-x-4 px-4 overflow-x-auto">
           <div className="carousel-item">
-            <div className="card bg-base-100 w-96 shadow-sm">
-              <figure className="px-10 pt-10">
+            <div className="card bg-base-100 w-xs sm:w-80 md:w-96 shadow-sm">
+              <figure className="px-4 sm:px-6 pt-6">
                 <img
                   src="https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/tsuxkgtgd6c5rvasho5g.webp"
                   alt="Phone Stand"
@@ -45,7 +45,7 @@ export default function Home() {
             </div>
           </div>
           <div className="carousel-item">
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 w-xs sm:w-80 md:w-96 shadow-sm">
               <figure className="px-10 pt-10">
                 <img
                   src="https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/njmgfshbilzny6okpftm.webp"
@@ -66,7 +66,7 @@ export default function Home() {
             </div>
           </div>
           <div className="carousel-item">
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 w-xs sm:w-80 md:w-96 shadow-sm">
               <figure className="px-10 pt-10">
                 <img
                   src="https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/yaehpu1u4xla30u2dyi5.webp "
@@ -87,7 +87,7 @@ export default function Home() {
             </div>
           </div>
           <div className="carousel-item">
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 w-xs sm:w-80 md:w-96 shadow-sm">
               <figure className="px-10 pt-10">
                 <img
                   src="https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/lwn7jgufluvpdpvkh7z9.webp"
@@ -108,7 +108,7 @@ export default function Home() {
             </div>
           </div>
           <div className="carousel-item">
-            <div className="card bg-base-100 w-96 shadow-sm">
+            <div className="card bg-base-100 w-xs sm:w-80 md:w-96 shadow-sm">
               <figure className="px-10 pt-10">
                 <img
                   src="https://res.cloudinary.com/dshcxl5an/image/upload/v1742545792/xwqe3teynpiqx82hafoj.webp"
@@ -131,12 +131,12 @@ export default function Home() {
         </div>
 
         <h3 className="divider">Categories</h3>
-        <div className="grid grid-cols-2 gap-4  mb-10">
-          <div className="flex flex-col gap-3 justify-self-end">
-            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+          <div className="flex flex-col gap-3 md:justify-self-end">
+            <div className="card dark:bg-base-200 dark:text-base-content sm:w-80 md:w-96 bg-gray-100 card-lg shadow-sm m-4">
               <div className="card-body">
                 <h2 className="card-title">Home</h2>
-                <p>
+                <p className="text-xs sm:text-sm">
                   Practical 3D-printed items for home organization, storage, and
                   decoration.
                 </p>
@@ -145,10 +145,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+            <div className="card dark:bg-base-200 dark:text-base-content sm:w-80 md:w-96 bg-gray-100 card-lg shadow-sm m-4">
               <div className="card-body">
                 <h2 className="card-title">Tools</h2>
-                <p>
+                <p className="text-xs sm:text-sm">
                   Handy 3D-printed tools and accessories for everyday DIY and
                   repair tasks.
                 </p>
@@ -159,10 +159,10 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+            <div className="card dark:bg-base-200 dark:text-base-content sm:w-80 md:w-96 bg-gray-100 card-lg shadow-sm m-4">
               <div className="card-body">
                 <h2 className="card-title">Toys</h2>
-                <p>
+                <p className="text-xs sm:text-sm">
                   Fun and creative 3D-printed toys and games for kids and
                   hobbyists.
                 </p>
@@ -171,10 +171,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="card w-96 bg-gray-100 card-lg shadow-sm m-4">
+            <div className="card dark:bg-base-200 dark:text-base-content sm:w-80 md:w-96 bg-gray-100 card-lg shadow-sm m-4">
               <div className="card-body">
                 <h2 className="card-title">Gadgets</h2>
-                <p>
+                <p className="text-xs sm:text-sm">
                   Unique 3D-printed gadgets for tech lovers and problem solvers.
                 </p>
                 <div className="justify-end card-actions">

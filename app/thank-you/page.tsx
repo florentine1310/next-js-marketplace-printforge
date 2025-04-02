@@ -9,12 +9,15 @@ export default async function ThankYouPage() {
     <div>
       <h1 className="pageHeadline">Order Successful</h1>
       <h3>Thank you for your order with LayerForge! 🚀</h3>
-      <p className="text-center">
+      <p className="text-center mb-20">
         Your order has been placed successfully. You will receive an email
         confirmation shortly.
         <br />
         All order details can be found under{' '}
-        <a className="link link-accent" href={`/profile/${user?.userName}`}>
+        <a
+          className="link link-accent"
+          href={`/profile/${user?.userName}/orders`}
+        >
           My Orders
         </a>{' '}
         in your User Profile.
