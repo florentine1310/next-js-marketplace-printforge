@@ -8,14 +8,14 @@ export const createOrderItemInsecure = cache(
     const [orderItem] = await sql<OrderItem[]>`
       INSERT INTO
         order_items (order_id, model_id, quantity)
-      VALUES(
+      VALUES
+        (
           ${orderItemData.orderId},
           ${orderItemData.modelId},
-          ${orderItemData.quantity})
-
+          ${orderItemData.quantity}
+        )
       RETURNING
-        order_items.*
-        ;
+        order_items.*;
     `;
 
     return orderItem;

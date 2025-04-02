@@ -16,21 +16,18 @@ export const createWishlistEntry = cache(
       INSERT INTO
         wishlist (user_id, model_id)
       SELECT
-          users.id,
-          ${wishlistItem.modelId}
-
-          FROM sessions
-      INNER JOIN users ON users.id = sessions.user_id
-      WHERE sessions.token = ${sessionToken}
-
-      AND sessions.expiry_timestamp > now()
-
+        users.id,
+        ${wishlistItem.modelId}
+      FROM
+        sessions
+        INNER JOIN users ON users.id = sessions.user_id
+      WHERE
+        sessions.token = ${sessionToken}
+        AND sessions.expiry_timestamp > now()
       RETURNING
         wishlist.id,
         wishlist.user_id,
-        wishlist.model_id
-
-        ;
+        wishlist.model_id;
     `;
 
     return wishlistEntry;
@@ -53,7 +50,7 @@ export const getWishlistItemsInsecure = cache(async (id: number) => {
       models
       LEFT JOIN wishlist ON models.id = wishlist.model_id
     WHERE
-    wishlist.user_id = ${id}
+      wishlist.user_id = ${id}
   `;
   return wishlistItem;
 });
@@ -62,8 +59,13 @@ export const getWishlistItemsInsecure = cache(async (id: number) => {
 
 export async function isModelInWishlist(userId: number, modelId: number) {
   const result = await sql<WishlistEntry[]>`
-    SELECT * FROM wishlist
-    WHERE user_id = ${userId} AND model_id = ${modelId}
+    SELECT
+      *
+    FROM
+      wishlist
+    WHERE
+      user_id = ${userId}
+      AND model_id = ${modelId}
   `;
   return result.length > 0;
 }
@@ -73,16 +75,15 @@ export async function isModelInWishlist(userId: number, modelId: number) {
 export const deleteWishlistItem = cache(
   async (sessionToken: Session['token'], modelId: number, userId: number) => {
     const [wishlistItem] = await sql<WishlistEntry[]>`
-    DELETE FROM wishlist USING sessions
-
-    WHERE
-    sessions.token = ${sessionToken}
-    AND sessions.expiry_timestamp > now()
-    AND wishlist.model_id = ${modelId}
-    AND wishlist.user_id = ${userId}
-    RETURNING
-    wishlist.*
-  `;
+      DELETE FROM wishlist USING sessions
+      WHERE
+        sessions.token = ${sessionToken}
+        AND sessions.expiry_timestamp > now()
+        AND wishlist.model_id = ${modelId}
+        AND wishlist.user_id = ${userId}
+      RETURNING
+        wishlist.*
+    `;
     return wishlistItem;
   },
 );

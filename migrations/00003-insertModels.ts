@@ -83,25 +83,27 @@ const models = [
 export async function up(sql: Sql) {
   for (const model of models) {
     await sql`
-INSERT INTO models (
-  user_id,
-      category,
-      name,
-      description,
-      stl_url,
-      image_url,
-      print_price
-)
-VALUES (
-  ${model.userId},
-  ${model.category},
-  ${model.name},
-  ${model.description},
-  ${model.stlUrl},
-  ${model.imageUrl},
-  ${model.printPrice}
-)
-  `;
+      INSERT INTO
+        models (
+          user_id,
+          category,
+          name,
+          description,
+          stl_url,
+          image_url,
+          print_price
+        )
+      VALUES
+        (
+          ${model.userId},
+          ${model.category},
+          ${model.name},
+          ${model.description},
+          ${model.stlUrl},
+          ${model.imageUrl},
+          ${model.printPrice}
+        )
+    `;
   }
 }
 

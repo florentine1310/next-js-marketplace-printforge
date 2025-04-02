@@ -24,17 +24,17 @@ export const orderSchema = z.object({
 
 export async function up(sql: Sql) {
   await sql`
-  CREATE TABLE orders (
-    id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_id integer NOT NULL REFERENCES users (id),
-    shipping_address varchar NOT NULL,
-    shipping_zip_code integer NOT NULL,
-    shipping_city varchar NOT NULL,
-    shipping_country varchar NOT NULL,
-    order_total numeric(10, 2) NOT NULL,
-    created_at date NOT NULL
-  )
-`;
+    CREATE TABLE orders (
+      id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      user_id integer NOT NULL REFERENCES users (id),
+      shipping_address varchar NOT NULL,
+      shipping_zip_code integer NOT NULL,
+      shipping_city varchar NOT NULL,
+      shipping_country varchar NOT NULL,
+      order_total numeric(10, 2) NOT NULL,
+      created_at date NOT NULL
+    )
+  `;
 }
 
 export async function down(sql: Sql) {

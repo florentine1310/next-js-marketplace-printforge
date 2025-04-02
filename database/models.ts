@@ -22,7 +22,7 @@ export const getModelInsecure = cache(async (id: number) => {
     FROM
       models
     WHERE
-    id = ${id}
+      id = ${id}
   `;
   return model;
 });
@@ -34,7 +34,7 @@ export const getModelsByCategoryInsecure = cache(async (category: string) => {
     FROM
       models
     WHERE
-    category = ${category}
+      category = ${category}
   `;
   return models;
 });
@@ -42,15 +42,16 @@ export const getModelsByCategoryInsecure = cache(async (category: string) => {
 export const getModelsByUser = cache(
   async (sessionToken: Session['token'], userId: number) => {
     const models = await sql<Model[]>`
-    SELECT
-      models.*
-    FROM
-      models
-    INNER JOIN sessions ON sessions.user_id = models.user_id
-      WHERE sessions.token = ${sessionToken}
-      AND sessions.user_id = ${userId}
-      AND sessions.expiry_timestamp > now()
-  `;
+      SELECT
+        models.*
+      FROM
+        models
+        INNER JOIN sessions ON sessions.user_id = models.user_id
+      WHERE
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = ${userId}
+        AND sessions.expiry_timestamp > now()
+    `;
     return models;
   },
 );
@@ -60,21 +61,30 @@ export const createModel = cache(
   async (sessionToken: Session['token'], modelData: Omit<Model, 'id'>) => {
     const [model] = await sql<Model[]>`
       INSERT INTO
-        models (user_id, category, name, description, stl_url, image_url, print_price)
+        models (
+          user_id,
+          category,
+          name,
+          description,
+          stl_url,
+          image_url,
+          print_price
+        )
       SELECT
-          users.id,
-          ${modelData.category},
-          ${modelData.name},
-          ${modelData.description},
-          ${modelData.stlUrl},
-          ${modelData.imageUrl},
-          ${modelData.printPrice}::numeric
-          FROM sessions
-      INNER JOIN users ON users.id = sessions.user_id
-      WHERE sessions.token = ${sessionToken}
-      AND sessions.user_id = ${modelData.userId}
-      AND sessions.expiry_timestamp > now()
-
+        users.id,
+        ${modelData.category},
+        ${modelData.name},
+        ${modelData.description},
+        ${modelData.stlUrl},
+        ${modelData.imageUrl},
+        ${modelData.printPrice}::numeric
+      FROM
+        sessions
+        INNER JOIN users ON users.id = sessions.user_id
+      WHERE
+        sessions.token = ${sessionToken}
+        AND sessions.user_id = ${modelData.userId}
+        AND sessions.expiry_timestamp > now()
       RETURNING
         models.id,
         models.user_id,
@@ -83,8 +93,7 @@ export const createModel = cache(
         models.description,
         models.stl_url,
         models.image_url,
-        models.print_price
-        ;
+        models.print_price;
     `;
 
     return model;
@@ -97,11 +106,10 @@ export const deleteModelById = cache(
   async (sessionToken: Session['token'], modelId: number) => {
     const [model] = await sql<Model[]>`
       DELETE FROM models USING sessions
-
-      WHERE sessions.token = ${sessionToken}
-      AND sessions.expiry_timestamp > now()
-      AND models.id = ${modelId}
-
+      WHERE
+        sessions.token = ${sessionToken}
+        AND sessions.expiry_timestamp > now()
+        AND models.id = ${modelId}
       RETURNING
         models.*
     `;

@@ -42,23 +42,23 @@ export const getUser = cache(async (sessionToken: Session['token']) => {
 
 export const getUserInsecure = cache(async (userName: User['userName']) => {
   const [user] = await sql<User[]>`
-  SELECT
-    id,
-    user_name,
-    email,
-    first_name,
-    last_name,
-    address,
-    zip_code,
-    city,
-    country,
-    profile_image,
-    offers_printing
-  FROM
-    users
-  WHERE
-    user_name = ${userName}
-`;
+    SELECT
+      id,
+      user_name,
+      email,
+      first_name,
+      last_name,
+      address,
+      zip_code,
+      city,
+      country,
+      profile_image,
+      offers_printing
+    FROM
+      users
+    WHERE
+      user_name = ${userName}
+  `;
 
   return user;
 });
@@ -66,24 +66,24 @@ export const getUserInsecure = cache(async (userName: User['userName']) => {
 export const getUserWithPasswordHashInsecure = cache(
   async (email: User['email']) => {
     const [user] = await sql<UserWithPasswordHash[]>`
-  SELECT
-    id,
-    user_name,
-    email,
-    first_name,
-    last_name,
-    address,
-    zip_code,
-    city,
-    country,
-    password_hash,
-    profile_image,
-    offers_printing
-  FROM
-    users
-  WHERE
-    email = ${email.toLowerCase()}
-`;
+      SELECT
+        id,
+        user_name,
+        email,
+        first_name,
+        last_name,
+        address,
+        zip_code,
+        city,
+        country,
+        password_hash,
+        profile_image,
+        offers_printing
+      FROM
+        users
+      WHERE
+        email = ${email.toLowerCase()}
+    `;
 
     return user;
   },
@@ -91,15 +91,14 @@ export const getUserWithPasswordHashInsecure = cache(
 
 export const getUserInfoByIdInsecure = cache(async (userId: number) => {
   const [userInfo] = await sql<UserInfo[]>`
-  SELECT
-    user_name,
-    profile_image
-
-  FROM
-    users
-  WHERE
-    id = ${userId}
-`;
+    SELECT
+      user_name,
+      profile_image
+    FROM
+      users
+    WHERE
+      id = ${userId}
+  `;
 
   return userInfo;
 });
@@ -113,7 +112,20 @@ export const createUserInsecure = cache(
   ) => {
     const [user] = await sql<User[]>`
       INSERT INTO
-        users (user_name, email, first_name, last_name, address, zip_code, city, country, profile_image, offers_printing, created_at, password_hash)
+        users (
+          user_name,
+          email,
+          first_name,
+          last_name,
+          address,
+          zip_code,
+          city,
+          country,
+          profile_image,
+          offers_printing,
+          created_at,
+          password_hash
+        )
       VALUES
         (
           ${userData.userName},
@@ -126,7 +138,7 @@ export const createUserInsecure = cache(
           ${userData.country},
           ${userData.profileImage},
           ${userData.offersPrinting},
-          CURRENT_DATE,
+          current_date,
           ${passwordHash}
         )
       RETURNING
@@ -140,8 +152,7 @@ export const createUserInsecure = cache(
         users.city,
         users.country,
         users.profile_image,
-        users.offers_printing
-        ;
+        users.offers_printing;
     `;
 
     return user;
@@ -163,7 +174,7 @@ export const updateUser = cache(
         email = ${updatedUser.email},
         address = ${updatedUser.address},
         city = ${updatedUser.city},
-        zip_code= ${updatedUser.zipCode},
+        zip_code = ${updatedUser.zipCode},
         country = ${updatedUser.country},
         offers_printing = ${updatedUser.offersPrinting}
       FROM

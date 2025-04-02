@@ -156,35 +156,37 @@ const users = [
 export async function up(sql: Sql) {
   for (const user of users) {
     await sql`
-INSERT INTO users (
-  user_name,
-      email,
-      first_name,
-      last_name,
-      address,
-      zip_code,
-      city,
-      country,
-      profile_image,
-      password_hash,
-      offers_printing,
-      created_at
-)
-VALUES (
-  ${user.userName},
-  ${user.email},
-  ${user.firstName},
-  ${user.lastName},
-  ${user.address},
-  ${user.zipCode},
-  ${user.city},
-  ${user.country},
-  ${user.profileImage},
-  ${user.passwordHash},
-  ${user.offersPrinting},
-  CURRENT_DATE
-)
-  `;
+      INSERT INTO
+        users (
+          user_name,
+          email,
+          first_name,
+          last_name,
+          address,
+          zip_code,
+          city,
+          country,
+          profile_image,
+          password_hash,
+          offers_printing,
+          created_at
+        )
+      VALUES
+        (
+          ${user.userName},
+          ${user.email},
+          ${user.firstName},
+          ${user.lastName},
+          ${user.address},
+          ${user.zipCode},
+          ${user.city},
+          ${user.country},
+          ${user.profileImage},
+          ${user.passwordHash},
+          ${user.offersPrinting},
+          current_date
+        )
+    `;
   }
 }
 
