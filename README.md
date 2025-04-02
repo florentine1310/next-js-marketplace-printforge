@@ -13,6 +13,11 @@ It is a full functioning marketplace application that includes the following fun
 
 <img width="1400" alt="image" src="https://github.com/user-attachments/assets/df6529a0-cd49-4703-80eb-08e952a63227" />
 
+## Wireframing 
+Design and wireframing was done with Figma: https://www.figma.com/design/xv3hziz8jlrhH5zVhCyZeC/Final-Project---Marketplace?node-id=58-564&t=OHhbnP1n6o1y5uQM-1
+
+<img width="993" alt="image" src="https://github.com/user-attachments/assets/637b687e-7a0e-4d93-891c-5e0d73cb56a9" />
+
 
 ## Technologies
 
@@ -27,6 +32,10 @@ It is a full functioning marketplace application that includes the following fun
 - Stripe API 
 
 ## Database Setup
+The Database Setup was planned with DrawSQL: https://drawsql.app/teams/upleveled-25/diagrams/final-project-upleveled
+
+<img width="1020" alt="image" src="https://github.com/user-attachments/assets/f831f947-8c32-44fa-8880-3cd1cc8571b8" />
+
 
 ```
 postgres=# CREATE DATABASE marketplace_printforge;
