@@ -22,8 +22,11 @@ type Props = {
 export default async function CheckoutPage(props: Props) {
   const { canceled } = await props.searchParams;
   if (canceled) {
-    console.log(
-      'Order canceled -- continue to shop around and checkout when you’re ready.',
+    return (
+      <p>
+        Your Order was canceled - please try again or come back at a later point
+        in time.
+      </p>
     );
   }
 

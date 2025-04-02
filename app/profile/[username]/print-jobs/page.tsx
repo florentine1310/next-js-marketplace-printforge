@@ -29,7 +29,6 @@ export default async function PrintJobPage(props: Props) {
   if (!user) redirect(`/login?returnTo=profile/${username}/my-print-jobs`);
 
   const printJobs = await getOrdersByCreatorId(user.id);
-  console.log('printJobs', printJobs);
 
   return (
     <div>
