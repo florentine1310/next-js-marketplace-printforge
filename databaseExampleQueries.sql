@@ -31,17 +31,17 @@ INSERT INTO users (
       created_at
 )
 VALUES (
-  ${user.id},
-  ${user.userName},
-  ${user.email},
-  ${user.firstName},
-  ${user.lastName},
-  ${user.address},
-  ${user.zipCode},
-  ${user.city},
-  ${user.country},
-  ${user.profileImage},
-  ${user.offersPrinting},
+
+  'sampleUser',
+  'test.user@email.at',
+  'Test',
+  'User',
+  'Some Street 24',
+  '1234',
+  'Vienna',
+  'Austria',
+  'sample.url',
+  true,
   CURRENT_DATE
 )
 
