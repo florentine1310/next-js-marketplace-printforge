@@ -1,6 +1,18 @@
 ## Marketplace for 3D Print Models
 
 This is a [Next.js](https://nextjs.org) project done as final project for the UpLeveled Full Stack Development Course.
+It is a full functioning marketplace application that includes the following functionlities: 
+
+- Login / Registering with Authentication and Zod Validation
+- 3D Printing Models Upload and Editing
+- Add-To-Cart / Add-To-Wishlist
+- Shopping Cart
+- Checkout with Stripe Payments
+
+ <img width="1392" alt="image" src="https://github.com/user-attachments/assets/0d3a6f57-a69c-40f9-b26a-b08144582715" />
+
+<img width="1400" alt="image" src="https://github.com/user-attachments/assets/df6529a0-cd49-4703-80eb-08e952a63227" />
+
 
 ## Technologies
 
@@ -8,6 +20,11 @@ This is a [Next.js](https://nextjs.org) project done as final project for the Up
 - Tailwind CSS
 - DaisyUI
 - PostgreSQL
+- Zod
+- Jest
+- Playwright
+- Cloudinary API & Upload Widget 
+- Stripe API 
 
 ## Database Setup
 
@@ -27,7 +44,19 @@ marketplace_printforge=# \q
 
 ## Tests
 
+### Jest
+``
+pnpm jest
+``
+
+### Playwright
+``
+pnpm playwright test
+``
+
 ## Deployment
+
+The project is deployed to Fly.io 
 
 ## Authentication
 
@@ -58,3 +87,7 @@ export type User = {
 - /api/(auth)/login
   - POST   => User   | Error[]   (login user)
 ```
+
+## Stripe Checkout 
+
+the checkout can be tested with Stripe test card credentials: https://docs.stripe.com/testing
