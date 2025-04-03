@@ -37,7 +37,6 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "daisyui": "^5.0.3",
-    "esbuild-register": "3.6.0",
     "eslint": "^9.21.0",
     "eslint-config-upleveled": "^9.2.3",
     "jest": "30.0.0-alpha.7",
