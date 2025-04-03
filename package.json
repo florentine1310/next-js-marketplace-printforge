@@ -16,6 +16,7 @@
     "bcrypt": "5.1.1",
     "cloudinary": "^2.5.1",
     "dotenv-safe": "9.1.0",
+    "esbuild-register": "^3.6.0",
     "next": "15.1.7",
     "next-cloudinary": "^6.16.0",
     "postgres": "3.4.5",
