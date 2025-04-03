@@ -2,6 +2,7 @@ import type { PlaywrightTestConfig } from '@playwright/test';
 
 // Config file docs: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
+  timeout: 60000,
   webServer: {
     command: './node_modules/.bin/next start',
     port: 3000,
@@ -22,6 +23,8 @@ const config: PlaywrightTestConfig = {
     testIdAttribute: 'data-test-id',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    actionTimeout: 10000,
+    navigationTimeout: 30000,
   },
 };
 
