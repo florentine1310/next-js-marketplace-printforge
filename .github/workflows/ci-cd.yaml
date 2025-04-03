@@ -12,6 +12,9 @@ jobs:
       PGDATABASE: marketplace_printforge
       PGUSERNAME: marketplace_printforge
       PGPASSWORD: marketplace_printforge
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: dshcxl5an
+      NEXT_PUBLIC_CLOUDINARY_PRESET_NAME: ml_default
+      CLOUDINARY_CLOUD_NAME: dshcxl5an
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
