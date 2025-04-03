@@ -4,7 +4,7 @@ import type { PlaywrightTestConfig } from '@playwright/test';
 const config: PlaywrightTestConfig = {
   timeout: 60000,
   webServer: {
-    command: './node_modules/.bin/next start',
+    command: '"./node_modules/.bin/next" start',
     port: 3000,
     stdout: 'pipe',
   },
