@@ -13,6 +13,11 @@ type Props = {
   }>;
 };
 
+export const metadata = {
+  title: 'All 3D Models',
+  description: 'Find a variety of 3D Models to print at home',
+};
+
 export default async function ModelPage({ searchParams }: Props) {
   const params = await searchParams;
   const selectedCategory = params.category ?? 'all';

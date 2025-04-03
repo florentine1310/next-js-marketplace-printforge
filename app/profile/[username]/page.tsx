@@ -8,6 +8,11 @@ type Props = {
   params: Promise<{ username: string }>;
 };
 
+export const metadata = {
+  title: 'LayerForge | User Profile',
+  description: 'The marketplace to build anything - one layer at a time',
+};
+
 export default async function ProfilePage(props: Props) {
   const { username } = await props.params;
 
