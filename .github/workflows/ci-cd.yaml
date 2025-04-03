@@ -51,6 +51,19 @@ jobs:
         run: pnpm migrate up
       - name: Build Next.js app (types needed for TSC and ESLint)
         run: pnpm build
+        env:
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+        STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        NEXT_PUBLIC_CLOUDINARY_API_KEY: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
+        NEXT_PUBLIC_CLOUDINARY_API_SECRET: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_SECRET }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: dshcxl5an
+        CLOUDINARY_CLOUD_NAME: dshcxl5an
+        PGHOST: localhost
+        PGDATABASE: marketplace_printforge
+        PGUSERNAME: marketplace_printforge
+        PGPASSWORD: marketplace_printforge
       - name: Check TypeScript Types
         run: pnpm tsc
       - name: Lint with ESLint
