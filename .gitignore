@@ -50,4 +50,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/report/
-/playwright/test-results/
+/playwright/test-results/*
