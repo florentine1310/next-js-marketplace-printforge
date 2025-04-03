@@ -9,7 +9,11 @@ export default function reduceCookieValue(
   }
   const cookieValue = {
     id: selectedModel.id,
+    userId: selectedModel.userId,
+    category: selectedModel.category,
     name: selectedModel.name,
+    description: selectedModel.description,
+    stlUrl: selectedModel.stlUrl,
     imageUrl: selectedModel.imageUrl,
     printPrice: Number(selectedModel.printPrice),
     quantity: quantity,
