@@ -9,7 +9,7 @@ test('add or update cookie value correctly', () => {
       printPrice: 19.99,
       imageUrl:
         'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/yaehpu1u4xla30u2dyi5.webp',
-      quantity: 5,
+      quantity: 6,
     },
     {
       id: 2,
@@ -53,7 +53,7 @@ test('add or update cookie value correctly', () => {
       printPrice: 19.99,
       imageUrl:
         'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/yaehpu1u4xla30u2dyi5.webp',
-      quantity: 5,
+      quantity: 6,
     },
     {
       id: 2,
@@ -80,7 +80,7 @@ test('add or update cookie value correctly', () => {
       printPrice: 19.99,
       imageUrl:
         'https://res.cloudinary.com/dshcxl5an/image/upload/v1742545793/yaehpu1u4xla30u2dyi5.webp',
-      quantity: 5,
+      quantity: 6,
     },
     {
       id: 2,
