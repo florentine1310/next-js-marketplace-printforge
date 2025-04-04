@@ -12,7 +12,7 @@ test('login test', async ({ page }) => {
     .getByRole('group', { name: 'User Login' })
     .getByRole('button')
     .click();
-  await page.waitForURL('/profile/admin');
+  await page.waitForURL('/profile/Admin');
   await expect(
     page.getByRole('heading', { name: 'User Admin Area' }),
   ).toBeVisible();
