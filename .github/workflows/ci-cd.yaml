@@ -90,6 +90,7 @@ jobs:
     timeout-minutes: 30
     needs: ci
     if: github.ref == 'refs/heads/main'
+    environment: Marketplace Layerforge
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
