@@ -151,6 +151,22 @@ const users = [
       '$2a$12$s7guUbSwTe8w083C8NJHAuS6P2uPxaVq1gXaeULjkzP8rhmb5fBnm',
     offersPrinting: true,
   },
+  {
+    id: 11,
+    userName: 'Admin',
+    email: 'admin@test.at',
+    firstName: 'Florentine',
+    lastName: 'Ramböck',
+    address: 'Landstraße 48',
+    zipCode: 5020,
+    city: 'Salzburg',
+    country: 'Austria',
+    profileImage:
+      'https://asset.cloudinary.com/dshcxl5an/6f45dcf2d3561385c3bffd2e9e96fd41',
+    passwordHash:
+      '$2a$12$1lQQUtEQkCJ2AZxny0jynud.l2Iy4.G4uo2qEnCCHkK2Mm654Pt.q',
+    offersPrinting: false,
+  },
 ];
 
 export async function up(sql: Sql) {
