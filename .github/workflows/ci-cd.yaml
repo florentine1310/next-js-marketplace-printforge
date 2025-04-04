@@ -95,4 +95,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy --remote-only --build-secret STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
