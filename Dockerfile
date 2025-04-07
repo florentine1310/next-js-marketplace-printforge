@@ -10,8 +10,10 @@ RUN yq --inplace --output-format=json '(.devDependencies = (.devDependencies | t
 RUN pnpm install
 RUN --mount=type=secret,id=STRIPE_SECRET_KEY \
     --mount=type=secret,id=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME \
+    --mount=type=secret,id=NEXT_PUBLIC_CLOUDINARY_API_KEY \
     echo "STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY)" > .env.production \
     && echo "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$(cat /run/secrets/NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME)" >> .env.production \
+    && echo "NEXT_PUBLIC_CLOUDINARY_API_KEY=$(cat /run/secrets/NEXT_PUBLIC_CLOUDINARY_API_KEY)" >> .env.production \
     && pnpm build
 
 # Multi-stage builds: runner stage
