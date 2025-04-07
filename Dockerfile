@@ -9,8 +9,10 @@ COPY . .
 RUN yq --inplace --output-format=json '(.devDependencies = (.devDependencies | to_entries | map(select(.key | test("^(@jest/globals|@playwright/test|@ts-safeql/eslint-plugin|jest|jest-environment-jsdom|libpg-query|prettier|prettier-plugin-embed|prettier-plugin-sql|stylelint|stylelint-config-upleveled)$") | not)) | from_entries))' package.json
 RUN pnpm install
 RUN --mount=type=secret,id=STRIPE_SECRET_KEY \
-  echo "STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY)" > .env.production \
-  && pnpm build
+    --mount=type=secret,id=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME \
+    echo "STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY)" > .env.production \
+    && echo "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=$(cat /run/secrets/NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME)" >> .env.production \
+    && pnpm build
 
 # Multi-stage builds: runner stage
 FROM node:lts-alpine AS runner
