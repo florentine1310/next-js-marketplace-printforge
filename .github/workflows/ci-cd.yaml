@@ -96,4 +96,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-secret STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+      - run: flyctl deploy --remote-only \
+          --build-secret STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }} \
+          --build-secret NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=dshcxl5an \
+          --build-secret NEXT_PUBLIC_CLOUDINARY_PRESET_NAME=ml_default \
+          --build-secret NEXT_PUBLIC_CLOUDINARY_API_KEY=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }} \
+          --build-secret NEXT_PUBLIC_CLOUDINARY_API_SECRET=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_SECRET }} \
