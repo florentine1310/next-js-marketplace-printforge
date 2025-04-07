@@ -76,7 +76,7 @@ export async function POST(
       quantity: item.quantity,
     }));
 
-    // Create Stripe Checkout Sessions from body params.
+    // Create Stripe checkout sessions from body params.
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
